@@ -1044,4 +1044,1006 @@
                 align-items:flex-start;
 
                 background:rgba(1,8,20,.97);
-                border-bottom:1px solid rgba(255
+                border-bottom:1px solid rgba(255,255,255,.08);
+            }
+
+            .menu.open{
+                display:flex;
+            }
+
+
+            .hero{
+                min-height:auto;
+            }
+
+            .hero-container{
+                padding:115px 20px 60px;
+
+                grid-template-columns:1fr;
+            }
+
+            .hero-content{
+                padding-right:0;
+            }
+
+            .hero-title{
+                font-size:43px;
+            }
+
+            .hero-desc{
+                font-size:16px;
+                line-height:1.8;
+            }
+
+            .hero-buttons{
+                flex-wrap:wrap;
+            }
+
+            .btn{
+                padding:13px 21px;
+            }
+
+            .hero-visual{
+                margin-top:35px;
+                min-height:auto;
+            }
+
+            .robot-img{
+                width:100%;
+                border-radius:12px;
+            }
+
+            .product-badge{
+                top:15px;
+                right:5px;
+            }
+
+
+            .numbers{
+                margin:0;
+                padding:0 20px 40px;
+            }
+
+            .numbers-inner{
+                width:100%;
+                grid-template-columns:1fr 1fr;
+            }
+
+            .num:nth-child(2)::after{
+                display:none;
+            }
+
+
+            .section{
+                padding:80px 20px;
+            }
+
+            .section-title{
+                font-size:30px;
+            }
+
+
+            .about-grid{
+                grid-template-columns:1fr;
+                gap:40px;
+            }
+
+            .about-text h2{
+                font-size:28px;
+            }
+
+
+            .tech-feature{
+                grid-template-columns:1fr;
+            }
+
+            .tech-img{
+                min-height:330px;
+            }
+
+            .tech-img::after{
+                background:
+                    linear-gradient(
+                    180deg,
+                    transparent 60%,
+                    #061328 100%);
+            }
+
+            .tech-content{
+                padding:35px 25px;
+            }
+
+            .tech-content h2{
+                font-size:30px;
+            }
+
+
+            .course-grid{
+                grid-template-columns:1fr;
+            }
+
+            .course-card.feature{
+                grid-column:span 1;
+            }
+
+
+            .base-grid{
+                grid-template-columns:1fr 1fr;
+            }
+
+
+            .cta{
+                padding:80px 20px;
+            }
+
+            .cta h2{
+                font-size:31px;
+            }
+
+
+            .footer-inner{
+                flex-direction:column;
+            }
+
+            .copyright{
+                flex-direction:column;
+                gap:10px;
+            }
+
+        }
+
+
+        @media(max-width:550px){
+
+            .hero-title{
+                font-size:37px;
+            }
+
+            .hero-tags{
+                gap:12px;
+                font-size:12px;
+            }
+
+            .hero-buttons .btn{
+                flex:1;
+            }
+
+            .advantage-mini{
+                grid-template-columns:1fr;
+            }
+
+            .base-grid{
+                grid-template-columns:1fr;
+            }
+
+            .tech-points{
+                grid-template-columns:1fr;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     导航
+===================================================== -->
+
+<header class="header">
+
+    <div class="nav">
+
+        <a href="#" class="brand">
+
+            <div class="logo-symbol"></div>
+
+            <div>
+                <div class="brand-cn">北京汇博智能</div>
+                <div class="brand-en">HUIBO INTELLIGENT · BEIJING</div>
+            </div>
+
+        </a>
+
+
+        <nav class="menu" id="menu">
+
+            <a href="#">首页</a>
+
+            <a href="#about">关于基地</a>
+
+            <a href="#courses">培训课程</a>
+
+            <a href="#advantages">基地优势</a>
+
+            <a href="#technology">智能科技</a>
+
+            <a href="#contact">联系我们</a>
+
+            <a href="#contact" class="nav-register">
+                在线报名
+            </a>
+
+        </nav>
+
+
+        <div class="mobile-btn" onclick="toggleMenu()">
+            ☰
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     首屏
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                <span></span>
+                北京 · 先进制造人才培养
+            </div>
+
+
+            <h1 class="hero-title">
+
+                北京汇博智能
+
+                <strong>
+                    培训课程中心
+                </strong>
+
+            </h1>
+
+
+            <p class="hero-desc">
+
+                聚焦人工智能、具身智能、机器人与智能制造，
+                打造面向院校、企业及技能人才的先进制造
+                产教融合人才培养平台。
+
+            </p>
+
+
+            <div class="hero-tags">
+
+                <div><i></i>人工智能</div>
+
+                <div><i></i>机器人技术</div>
+
+                <div><i></i>智能制造</div>
+
+                <div><i></i>数字孪生</div>
+
+            </div>
+
+
+            <div class="hero-buttons">
+
+                <a href="#courses" class="btn btn-main">
+                    探索培训课程 →
+                </a>
+
+                <a href="#about" class="btn btn-line">
+                    了解北京汇博
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="hero-visual">
+
+            <div class="robot-glow"></div>
+
+
+            <!--
+            汇博机器人 Astra Pro2 官方新品图片
+            后期建议下载后放进自己的 images 文件夹
+            -->
+
+            <img
+            class="robot-img"
+            src="https://q4.itc.cn/images01/20260812/fee475eb4de049fab8ae2bb971b543a7.png"
+            alt="汇博机器人 Astra Pro2">
+
+
+            <div class="product-badge">
+
+                <small>HUIBO ROBOTICS · NEW</small>
+
+                <strong>Astra Pro2</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     数据
+===================================================== -->
+
+<div class="numbers">
+
+    <div class="numbers-inner">
+
+        <div class="num">
+            <strong>7+</strong>
+            <p>职业技能培训方向</p>
+        </div>
+
+        <div class="num">
+            <strong>1000+</strong>
+            <p>人才培养经验</p>
+        </div>
+
+        <div class="num">
+            <strong>产教融合</strong>
+            <p>人才培养模式</p>
+        </div>
+
+        <div class="num">
+            <strong>AI+</strong>
+            <p>先进制造技术</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     关于北京汇博
+===================================================== -->
+
+<section class="section about" id="about">
+
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div class="about-text">
+
+                <div class="section-en">
+                    ABOUT BEIJING HUIBO
+                </div>
+
+                <h2>
+                    立足北京昌平<br>
+                    打造<span>先进制造人才培养平台</span>
+                </h2>
+
+
+                <p>
+                    北京汇博智能科技有限公司聚焦先进制造、
+                    智能制造及人工智能领域技能人才培养，
+                    面向院校师生、企业职工及社会技能人才，
+                    开展职业技能培训、职业技能等级认定、
+                    师资研修、学生实习实践、企业技能提升
+                    及产教融合项目。
+                </p>
+
+
+                <p>
+                    依托产业资源和实训条件，
+                    将人才培养与真实产业应用相结合，
+                    推动人工智能、机器人、工业视觉、
+                    智能硬件和数字孪生等技术技能人才培养。
+                </p>
+
+
+                <div class="about-line">
+
+                    <span>先进制造</span>
+
+                    <span>人工智能</span>
+
+                    <span>机器人技术</span>
+
+                    <span>产教融合</span>
+
+                    <span>职业技能培养</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="advantage-mini">
+
+                <div class="mini-card">
+
+                    <div class="mini-number">01</div>
+
+                    <h3>产业资源</h3>
+
+                    <p>
+                        依托汇博机器人产业与教育资源，
+                        连接真实智能制造应用场景。
+                    </p>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <div class="mini-number">02</div>
+
+                    <h3>实训教学</h3>
+
+                    <p>
+                        围绕人工智能、机器人与先进制造
+                        开展实践型人才培养。
+                    </p>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <div class="mini-number">03</div>
+
+                    <h3>职业能力</h3>
+
+                    <p>
+                        将职业技能培养、实践训练
+                        与产业岗位能力衔接。
+                    </p>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <div class="mini-number">04</div>
+
+                    <h3>产教融合</h3>
+
+                    <p>
+                        联动院校、企业及产业资源，
+                        推动人才培养协同创新。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     Astra Pro2
+===================================================== -->
+
+<section class="section technology" id="technology">
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="section-en">
+                INTELLIGENT TECHNOLOGY
+            </div>
+
+            <h2 class="section-title">
+                前沿智能科技
+            </h2>
+
+            <p class="section-desc">
+                将产业前沿技术融入人才培养与教学实践
+            </p>
+
+        </div>
+
+
+        <div class="tech-feature">
+
+            <div class="tech-img">
+
+                <img
+                src="https://q3.itc.cn/images01/20260812/1d93a82d29924a94a8e93c9552af2811.jpeg"
+                alt="Astra Pro2具身智能机器人">
+
+            </div>
+
+
+            <div class="tech-content">
+
+                <div class="new">
+                    NEW PRODUCT · 2026
+                </div>
+
+
+                <h2>
+
+                    轮臂式具身智能机器人
+
+                    <span>Astra Pro2</span>
+
+                </h2>
+
+
+                <p>
+
+                    面向具身智能科研、教学实训及真实作业场景，
+                    融合移动感知、运动控制、智能决策与末端作业能力，
+                    为人工智能与机器人技术人才培养提供更加贴近产业
+                    实际应用的技术平台。
+
+                </p>
+
+
+                <div class="tech-points">
+
+                    <div>轮臂一体协同</div>
+
+                    <div>多模态感知</div>
+
+                    <div>ROS2 二次开发</div>
+
+                    <div>具身智能科研实训</div>
+
+                </div>
+
+
+                <div style="margin-top:28px">
+
+                    <a
+                    class="btn btn-line"
+                    href="https://www.huiborobot.com/company/1083.html"
+                    target="_blank">
+
+                        查看汇博机器人新品 →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     七大培训课程
+===================================================== -->
+
+<section class="section courses" id="courses">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div class="section-en">
+                TRAINING PROGRAMS
+            </div>
+
+            <h2 class="section-title">
+                七大职业技能培训方向
+            </h2>
+
+            <p class="section-desc">
+                围绕人工智能与先进制造产业需求构建培训课程体系
+            </p>
+
+        </div>
+
+
+        <div class="course-grid">
+
+
+            <div class="course-card">
+
+                <div class="course-no">COURSE 01</div>
+
+                <div class="course-icon">AI</div>
+
+                <h3>人工智能训练师</h3>
+
+                <p>
+                    数据采集与标注、模型训练、
+                    计算机视觉、AI工具应用及
+                    人工智能项目实践。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+
+
+            <div class="course-card">
+
+                <div class="course-no">COURSE 02</div>
+
+                <div class="course-icon">◎</div>
+
+                <h3>服务机器人应用技术员</h3>
+
+                <p>
+                    服务机器人系统应用、
+                    智能交互、调试维护及
+                    典型场景应用实践。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+
+
+            <div class="course-card">
+
+                <div class="course-no">COURSE 03</div>
+
+                <div class="course-icon">R</div>
+
+                <h3>工业机器人系统运维员</h3>
+
+                <p>
+                    工业机器人安装调试、
+                    日常维护、运行检测及
+                    系统故障诊断。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+
+
+            <div class="course-card">
+
+                <div class="course-no">COURSE 04</div>
+
+                <div class="course-icon">M</div>
+
+                <h3>工业机器人系统操作员</h3>
+
+                <p>
+                    工业机器人操作、
+                    编程调试、生产应用及
+                    自动化系统实践。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+
+
+            <div class="course-card">
+
+                <div class="course-no">COURSE 05</div>
+
+                <div class="course-icon">◉</div>
+
+                <h3>工业视觉系统运维员</h3>
+
+                <p>
+                    工业相机、机器视觉检测、
+                    图像处理、视觉系统调试
+                    与运行维护。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+
+
+            <div class="course-card">
+
+                <div class="course-no">COURSE 06</div>
+
+                <div class="course-icon">⚙</div>
+
+                <h3>智能硬件装调员</h3>
+
+                <p>
+                    智能硬件安装、装配、
+                    系统调试、功能检测及
+                    故障排查实践。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+
+
+            <div class="course-card feature">
+
+                <div class="course-no">COURSE 07</div>
+
+                <div class="course-icon">3D</div>
+
+                <h3>数字孪生应用技术员</h3>
+
+                <p>
+                    面向数字化工厂与智能制造场景，
+                    开展数字孪生建模、虚拟仿真、
+                    设备映射、系统调试及应用开发，
+                    培养数字化制造技术技能人才。
+                </p>
+
+                <a class="course-link" href="#">
+                    查看课程详情 →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     基地优势
+===================================================== -->
+
+<section class="section base" id="advantages">
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="section-en">
+                OUR ADVANTAGES
+            </div>
+
+            <h2 class="section-title">
+                基地核心优势
+            </h2>
+
+            <p class="section-desc">
+                产业、教育、实训与人才培养协同发展
+            </p>
+
+        </div>
+
+
+        <div class="base-grid">
+
+
+            <div class="base-card">
+
+                <div class="base-icon">◈</div>
+
+                <h3>产业技术支撑</h3>
+
+                <p>
+                    依托汇博机器人在智能制造、
+                    机器人及人工智能领域的
+                    产业技术与应用资源。
+                </p>
+
+            </div>
+
+
+
+            <div class="base-card">
+
+                <div class="base-icon">▣</div>
+
+                <h3>先进实训场景</h3>
+
+                <p>
+                    围绕先进制造技术，
+                    构建理论教学与设备实践
+                    相结合的实训环境。
+                </p>
+
+            </div>
+
+
+
+            <div class="base-card">
+
+                <div class="base-icon">◇</div>
+
+                <h3>技能人才培养</h3>
+
+                <p>
+                    面向院校师生、企业职工
+                    及社会技能人才，
+                    开展多层次技能提升。
+                </p>
+
+            </div>
+
+
+
+            <div class="base-card">
+
+                <div class="base-icon">∞</div>
+
+                <h3>产教融合服务</h3>
+
+                <p>
+                    联动院校、企业和产业资源，
+                    推进实习实践、师资培养
+                    及校企合作项目。
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     报名
+===================================================== -->
+
+<section class="cta" id="contact">
+
+    <div class="container">
+
+        <div class="section-en">
+            START YOUR JOURNEY
+        </div>
+
+        <h2>
+            开启先进制造人才培养之路
+        </h2>
+
+        <p>
+            北京汇博智能科技有限公司 · 北京昌平
+        </p>
+
+
+        <div class="cta-buttons">
+
+            <a href="#" class="btn btn-main">
+                在线报名
+            </a>
+
+            <a href="#" class="btn btn-line">
+                咨询培训课程
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     页脚
+===================================================== -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div class="footer-company">
+
+            <h3>
+                北京汇博智能科技有限公司
+            </h3>
+
+            <p>
+                聚焦人工智能、机器人、智能制造及先进制造
+                技能人才培养，开展职业技能培训、人才评价、
+                师资研修、学生实践、企业技能提升及产教融合服务。
+            </p>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+            <strong>联系我们</strong><br>
+
+            北京市昌平区<br>
+
+            培训咨询：后续填写<br>
+
+            微信公众号：后续填写
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        <span>
+            © 2026 北京汇博智能科技有限公司
+        </span>
+
+        <span>
+            HUIBO INTELLIGENT · BEIJING
+        </span>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+    function toggleMenu(){
+
+        document
+        .getElementById("menu")
+        .classList
+        .toggle("open");
+
+    }
+
+
+    document
+    .querySelectorAll(".menu a")
+    .forEach(function(link){
+
+        link.addEventListener("click",function(){
+
+            document
+            .getElementById("menu")
+            .classList
+            .remove("open");
+
+        });
+
+    });
+
+</script>
+
+
+</body>
+</html>
