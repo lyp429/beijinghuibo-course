@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北京汇博智能实训基地</title>
+<meta name="description" content="北京汇博智能实训基地，聚焦人工智能、具身智能、机器人、工业视觉与智能制造人才培养。">
+<script>
+(function () {
+    var ua = navigator.userAgent || "";
+    var isPhoneUA = /Android|iPhone|iPod|Mobile|HarmonyOS/i.test(ua);
+    var isSmallScreen = window.matchMedia("(max-width: 900px)").matches;
+    var target = (isPhoneUA || isSmallScreen) ? "./mobile/" : "./desktop/";
+    window.location.replace(target + window.location.search + window.location.hash);
+})();
+</script>
+<noscript>
+<meta http-equiv="refresh" content="0;url=./desktop/">
+</noscript>
+</head>
+<body style="margin:0;background:#020711;color:#fff;font-family:Arial,'Microsoft YaHei',sans-serif;">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;">正在进入北京汇博智能实训基地…</div>
+</body>
+</html>

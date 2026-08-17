@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>北京汇博智能实训基地</title>
+<meta name="description" content="北京汇博智能实训基地，聚焦人工智能、具身智能、机器人、工业视觉与智能制造人才培养。">
+<link rel="icon" href="../images/b48e4e55187ea879ea904f293c4d0094.png">
+<link rel="preload" as="image" href="../images/astra-pro2.jpg.png">
+<style>
+:root{
+    --bg:#020711;
+    --bg2:#031222;
+    --panel:rgba(5,25,46,.76);
+    --panel2:rgba(4,17,32,.92);
+    --white:#f5f8ff;
+    --text:#a9bfd0;
+    --blue:#41bcff;
+    --cyan:#62e9ff;
+    --green:#5ef0cc;
+    --line:rgba(82,202,255,.16);
+    --header:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{
+    scroll-behavior:smooth;
+    scroll-snap-type:y proximity;
+    scroll-padding-top:var(--header);
+    background:var(--bg);
+}
+body{
+    color:var(--white);
+    font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;
+    background:
+      radial-gradient(circle at 22% 8%,rgba(0,137,255,.16),transparent 28%),
+      radial-gradient(circle at 88% 32%,rgba(0,217,219,.08),transparent 26%),
+      linear-gradient(180deg,#031426 0%,#020914 46%,#01050c 100%);
+    min-width:320px;
+    overflow-x:hidden;
+    overscroll-behavior-y:none;
+    -webkit-overflow-scrolling:touch;
+}
+body::before{
+    content:"";
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(rgba(86,204,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(86,204,255,.035) 1px,transparent 1px);
+    background-size:52px 52px;
+    mask-image:linear-gradient(to bottom,transparent,black 14%,black 82%,transparent);
+}
+body::after{
+    content:"";
+    position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.055;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    mix-blend-mode:screen;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.header{
+    position:fixed;left:0;right:0;top:0;height:var(--header);z-index:1000;
+    display:flex;align-items:center;
+    background:linear-gradient(180deg,rgba(1,7,16,.97),rgba(2,10,22,.88));
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(73,193,255,.10);
+}
+.nav{
+    width:calc(100% - 40px);margin:auto;display:flex;align-items:center;justify-content:space-between;
+}
+.logo img{display:block;width:148px;max-height:38px;object-fit:contain;object-position:left center}
+.menu-btn{
+    height:38px;padding:0 13px;border-radius:999px;border:1px solid rgba(75,190,255,.28);
+    color:#dceeff;background:rgba(4,27,49,.58);display:flex;align-items:center;gap:9px;
+    box-shadow:inset 0 0 18px rgba(54,179,255,.035);
+}
+.menu-btn span:first-child{font-size:12px}
+.hamb{width:17px;height:12px;position:relative}
+.hamb i{position:absolute;left:0;width:100%;height:1px;background:#76dcff;transition:.25s}
+.hamb i:nth-child(1){top:0}
+.hamb i:nth-child(2){top:5px}
+.hamb i:nth-child(3){top:10px}
+.menu-btn.open .hamb i:nth-child(1){top:5px;transform:rotate(45deg)}
+.menu-btn.open .hamb i:nth-child(2){opacity:0}
+.menu-btn.open .hamb i:nth-child(3){top:5px;transform:rotate(-45deg)}
+
+.menu-panel{
+    position:fixed;z-index:990;left:14px;right:14px;top:78px;
+    border-radius:20px;border:1px solid rgba(83,206,255,.18);
+    background:linear-gradient(145deg,rgba(5,28,51,.97),rgba(2,12,24,.98));
+    backdrop-filter:blur(24px);
+    box-shadow:0 25px 70px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.03);
+    opacity:0;visibility:hidden;transform:translateY(-10px) scale(.985);
+    transition:.28s ease;overflow:hidden;
+}
+.menu-panel.open{opacity:1;visibility:visible;transform:none}
+.menu-head{padding:18px 18px 12px;color:#5ddcff;font-size:10px;letter-spacing:2.2px;border-bottom:1px solid rgba(83,198,255,.09)}
+.menu-links{display:grid;grid-template-columns:1fr 1fr;padding:8px}
+.menu-links a{
+    min-height:66px;padding:14px;border-radius:13px;display:flex;flex-direction:column;justify-content:center;
+    border:1px solid transparent;
+}
+.menu-links a:active{background:rgba(59,184,255,.08);border-color:rgba(78,204,255,.13)}
+.menu-links strong{font-size:15px}
+.menu-links small{margin-top:5px;color:rgba(154,190,212,.60);font-size:9px;letter-spacing:.8px}
+
+main{position:relative;z-index:2}
+.screen{
+    position:relative;
+    min-height:100svh;
+    padding:calc(var(--header) + 34px) 22px 52px;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    display:flex;align-items:center;
+}
+.screen-inner{width:100%;max-width:560px;margin:auto}
+#courses{align-items:flex-start;scroll-snap-stop:normal}
+#courses .screen-inner{padding-top:8px}
+.kicker{
+    display:inline-flex;align-items:center;gap:9px;height:34px;padding:0 14px;margin-bottom:22px;
+    border-radius:999px;border:1px solid rgba(67,180,255,.26);
+    color:#a9d8ff;background:rgba(5,35,65,.42);font-size:11px;
+}
+.kicker-dot{width:7px;height:7px;border-radius:50%;background:#43c8ff;box-shadow:0 0 12px rgba(67,200,255,.9)}
+.hero-title{font-size:clamp(40px,11.8vw,58px);line-height:1.03;letter-spacing:-2.6px;font-weight:800}
+.hero-title span{display:block}
+.grad{
+    background:linear-gradient(100deg,#eff7ff 0%,#9fd1ff 30%,#4eafff 64%,#62f1d9 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+}
+.hero-desc,.section-desc{
+    margin-top:22px;color:rgba(174,197,214,.78);font-size:15px;line-height:1.9;
+}
+.hero-points{display:flex;gap:10px 19px;flex-wrap:wrap;margin-top:22px}
+.hero-points span{font-size:12px;color:rgba(191,215,230,.80);padding-left:14px;position:relative}
+.hero-points span::before{
+    content:"";position:absolute;left:0;top:50%;width:5px;height:5px;border-radius:50%;transform:translateY(-50%);
+    background:#46c8ff;box-shadow:0 0 9px rgba(70,200,255,.8)
+}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}
+.btn{
+    min-height:56px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    padding:0 10px;font-size:14px;font-weight:700;border:1px solid rgba(75,189,255,.24);
+}
+.btn-primary{color:#002030;background:linear-gradient(100deg,#39baff,#5ce8ff 60%,#60f4d1)}
+.btn-secondary{color:#dbeaf5;background:rgba(4,25,45,.46)}
+
+.quick-nav{
+    margin-top:14px;padding:8px;border-radius:17px;
+    display:grid;grid-template-columns:1fr 1fr;gap:7px;
+    border:1px solid rgba(67,181,240,.13);
+    background:linear-gradient(145deg,rgba(3,24,44,.64),rgba(2,14,29,.45));
+    box-shadow:0 18px 50px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.025);
+}
+.quick-nav a{
+    position:relative;min-height:64px;border-radius:12px;padding:12px 13px;
+    display:flex;flex-direction:column;justify-content:center;
+    background:rgba(7,32,54,.30);border:1px solid rgba(78,195,255,.07);
+}
+.quick-nav a::after{
+    content:"→";position:absolute;right:12px;top:50%;transform:translateY(-50%);
+    color:#4ed9ff;font-size:15px;
+}
+.quick-nav strong{font-size:13px;padding-right:20px}
+.quick-nav small{font-size:9px;color:rgba(147,182,204,.56);margin-top:5px;letter-spacing:.4px}
+
+.stats{
+    margin-top:14px;display:grid;grid-template-columns:1fr 1fr;border-radius:17px;overflow:hidden;
+    border:1px solid rgba(67,181,240,.13);
+    background:linear-gradient(145deg,rgba(3,24,44,.70),rgba(2,14,29,.45));
+}
+.stat{min-height:102px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.stat:nth-child(odd){border-right:1px solid rgba(69,181,238,.09)}
+.stat:nth-child(-n+2){border-bottom:1px solid rgba(69,181,238,.09)}
+.stat strong{font-size:29px;color:#43bdff}
+.stat span{font-size:10px;color:rgba(154,182,200,.66);margin-top:8px}
+
+.robot-stage{margin:34px -10px 0;position:relative;min-height:390px;display:flex;align-items:center;justify-content:center}
+.robot-stage::before{
+    content:"";position:absolute;width:82%;aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,159,255,.18),rgba(0,94,255,.07) 38%,transparent 70%);
+    filter:blur(35px);animation:pulse 5s ease-in-out infinite;
+}
+.robot-card{
+    width:min(92%,430px);aspect-ratio:1/1.02;border-radius:25px;padding:14px;position:relative;z-index:2;
+    background:linear-gradient(145deg,rgba(8,31,53,.70),rgba(3,14,28,.50));
+    border:1px solid rgba(77,198,255,.14);box-shadow:0 25px 65px rgba(0,0,0,.28);
+    animation:float 5.8s ease-in-out infinite;
+}
+.robot-card img{width:100%;height:100%;display:block;object-fit:cover;border-radius:18px;filter:brightness(.83) contrast(1.04) saturate(.9)}
+.robot-badge{
+    position:absolute;right:-8px;top:24px;z-index:3;padding:11px 13px;border-radius:10px;
+    background:rgba(4,24,45,.94);border:1px solid rgba(72,187,255,.25);
+}
+.robot-badge small{display:block;color:#57cfff;font-size:8px;letter-spacing:1.5px}
+.robot-badge strong{display:block;margin-top:5px;font-size:15px}
+@keyframes float{50%{transform:translateY(-9px)}}
+@keyframes pulse{50%{transform:scale(1.08);opacity:.8}}
+
+.section-tag{color:#59d9ff;font-size:10px;font-weight:700;letter-spacing:2.4px;margin-bottom:18px}
+.section-title{font-size:clamp(35px,9.4vw,48px);line-height:1.1;letter-spacing:-1.4px}
+.section-title span{
+    background:linear-gradient(100deg,#eff7ff,#76c5ff,#5ff3da);
+    -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+}
+.visual{
+    margin:28px -22px 0;height:330px;position:relative;overflow:hidden;
+}
+.visual img{
+    width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.72) contrast(1.06) saturate(.85);
+    mask-image:radial-gradient(ellipse at center,black 42%,rgba(0,0,0,.82) 66%,transparent 94%);
+    -webkit-mask-image:radial-gradient(ellipse at center,black 42%,rgba(0,0,0,.82) 66%,transparent 94%);
+}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:26px}
+.feature{
+    min-height:58px;border-bottom:1px solid rgba(77,190,255,.11);padding:12px 10px 12px 25px;
+    position:relative;color:rgba(189,210,223,.83);font-size:12px;display:flex;align-items:center
+}
+.feature::before{content:"";position:absolute;left:8px;width:5px;height:5px;border-radius:50%;background:#4be0ff;box-shadow:0 0 8px rgba(75,224,255,.55)}
+
+.course-grid{display:grid;gap:11px;margin-top:28px}
+.course-card{
+    position:relative;min-height:132px;padding:20px;border-radius:14px;overflow:hidden;
+    background:linear-gradient(145deg,rgba(6,28,50,.70),rgba(2,14,27,.58));
+    border:1px solid rgba(72,184,239,.12);
+}
+.course-card::before{
+    content:"";position:absolute;right:-55px;top:-65px;width:140px;height:140px;border-radius:50%;
+    background:radial-gradient(circle,rgba(35,170,255,.13),transparent 70%);
+}
+.course-number{font-size:9px;color:rgba(70,199,255,.55);letter-spacing:1.8px;margin-bottom:16px}
+.course-card h3{font-size:17px;line-height:1.45;position:relative}
+.course-card p{font-size:12px;line-height:1.75;color:rgba(153,178,195,.72);margin-top:8px;position:relative}
+
+.industry-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:28px}
+.industry-card{
+    min-height:160px;padding:20px 16px;border-top:1px solid rgba(74,202,255,.20);
+    background:linear-gradient(180deg,rgba(6,28,49,.48),rgba(3,13,24,.08))
+}
+.industry-num{font-size:8px;letter-spacing:1.2px;color:rgba(66,189,255,.48)}
+.industry-card h3{font-size:17px;margin-top:22px}
+.industry-card p{font-size:11px;line-height:1.75;color:rgba(151,176,194,.68);margin-top:9px}
+
+.contact{text-align:center}
+.contact-title{font-size:clamp(42px,11vw,59px);line-height:1.05;letter-spacing:-2px}
+.contact-title span{
+    display:block;margin-top:5px;background:linear-gradient(100deg,#eff6ff,#75c5ff,#5ff4da);
+    -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent
+}
+.contact-desc{margin-top:26px;color:rgba(164,187,203,.74);font-size:14px;line-height:1.9}
+.footer{margin-top:72px;padding-top:20px;border-top:1px solid rgba(74,173,220,.10);font-size:9px;color:rgba(137,160,176,.50);line-height:1.9}
+.footer-tags{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:center;margin-top:10px}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media (max-width:360px){
+    .nav{width:calc(100% - 28px)}
+    .logo img{width:136px}
+    .screen{padding-left:17px;padding-right:17px}
+    .visual{margin-left:-17px;margin-right:-17px}
+    .actions{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="nav">
+    <a class="logo" href="#home"><img src="../images/b48e4e55187ea879ea904f293c4d0094.png" alt="汇博机器人"></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel">
+      <span>导航</span>
+      <span class="hamb" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu-panel" id="menuPanel">
+  <div class="menu-head">MOBILE NAVIGATION</div>
+  <nav class="menu-links">
+    <a href="#home"><strong>首页</strong><small>HOME</small></a>
+    <a href="#about"><strong>基地介绍</strong><small>ABOUT</small></a>
+    <a href="#embodied"><strong>具身智能</strong><small>EMBODIED AI</small></a>
+    <a href="#courses"><strong>培训课程</strong><small>COURSES</small></a>
+    <a href="#industry"><strong>产教融合</strong><small>INDUSTRY × EDUCATION</small></a>
+    <a href="#contact"><strong>联系我们</strong><small>CONTACT</small></a>
+  </nav>
+</div>
+
+<main>
+<section class="screen" id="home">
+  <div class="screen-inner">
+    <div class="reveal">
+      <div class="kicker"><span class="kicker-dot"></span>北京 · 先进制造人才培养</div>
+      <h1 class="hero-title"><span>北京汇博</span><span class="grad">智能实训基地</span></h1>
+      <p class="hero-desc">聚焦人工智能、具身智能、机器人与智能制造，打造面向院校、企业及技能人才的先进制造产教融合人才培养平台。</p>
+      <div class="hero-points">
+        <span>人工智能</span><span>具身智能</span><span>机器人技术</span><span>智能制造</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="#courses">探索培训课程&nbsp; →</a>
+        <a class="btn btn-secondary" href="#about">了解北京汇博</a>
+      </div>
+
+      <nav class="quick-nav" aria-label="首页快捷导航">
+        <a href="#about"><strong>基地介绍</strong><small>ABOUT</small></a>
+        <a href="#embodied"><strong>具身智能</strong><small>EMBODIED AI</small></a>
+        <a href="#courses"><strong>培训课程</strong><small>COURSES</small></a>
+        <a href="#industry"><strong>产教融合</strong><small>INDUSTRY</small></a>
+      </nav>
+
+      <div class="stats">
+        <div class="stat"><strong>7+</strong><span>职业技能培训方向</span></div>
+        <div class="stat"><strong>AI+</strong><span>先进制造技术</span></div>
+        <div class="stat"><strong>产教</strong><span>融合人才培养</span></div>
+        <div class="stat"><strong>实训</strong><span>产业实践教学</span></div>
+      </div>
+    </div>
+
+    <div class="robot-stage reveal">
+      <div class="robot-card">
+        <img src="../images/astra-pro2.jpg.png" alt="Astra Pro2 具身智能机器人">
+        <div class="robot-badge"><small>HUIBO ROBOTICS · NEW</small><strong>Astra Pro2</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="about">
+  <div class="screen-inner">
+    <div class="reveal">
+      <div class="section-tag">ABOUT HUABO</div>
+      <h2 class="section-title">产业技术<br><span>赋能人才培养</span></h2>
+      <p class="section-desc">北京汇博智能实训基地依托汇博机器人产业生态，聚焦人工智能、机器人、工业视觉与智能制造领域。面向院校师生、企业职工及社会技能人才，开展职业技能培训、职业技能等级认定、师资研修、学生实习实践、企业技能提升及产教融合项目。</p>
+      <div class="feature-grid">
+        <div class="feature">先进制造人才培养</div>
+        <div class="feature">机器人产业资源</div>
+        <div class="feature">实训教学体系</div>
+        <div class="feature">校企合作平台</div>
+      </div>
+    </div>
+    <div class="visual reveal"><img src="../images/image.png" alt="北京汇博智能实训基地"></div>
+  </div>
+</section>
+
+<section class="screen" id="embodied">
+  <div class="screen-inner">
+    <div class="reveal">
+      <div class="section-tag">EMBODIED AI</div>
+      <h2 class="section-title">具身智能<br><span>走进机器人时代</span></h2>
+      <p class="section-desc">围绕新一代具身智能机器人技术，融合人工智能、机器视觉、智能控制与机器人系统，构建面向真实产业场景的具身智能人才培养体系。</p>
+    </div>
+    <div class="visual reveal"><img src="../images/astra-pro2.jpg.png" alt="Astra Pro2"></div>
+  </div>
+</section>
+
+<section class="screen" id="courses">
+  <div class="screen-inner">
+    <div class="reveal">
+      <div class="section-tag">TRAINING PROGRAM</div>
+      <h2 class="section-title">七大课程 <span>培养方向</span></h2>
+      <p class="section-desc">围绕人工智能与先进制造产业需求，打造理论学习、设备实训、技能认证与产业实践相结合的人才培养体系。</p>
+    </div>
+    <div class="course-grid">
+      <article class="course-card reveal"><div class="course-number">PROGRAM 01</div><h3>人工智能训练师</h3><p>数据标注、模型训练、AI应用与人工智能实践。</p></article>
+      <article class="course-card reveal"><div class="course-number">PROGRAM 02</div><h3>服务机器人应用技术员</h3><p>机器人操作、调试、维护与应用部署。</p></article>
+      <article class="course-card reveal"><div class="course-number">PROGRAM 03</div><h3>工业机器人系统操作员</h3><p>工业机器人编程、系统操作与生产应用。</p></article>
+      <article class="course-card reveal"><div class="course-number">PROGRAM 04</div><h3>工业机器人系统运维员</h3><p>机器人维护、故障诊断与系统运维。</p></article>
+      <article class="course-card reveal"><div class="course-number">PROGRAM 05</div><h3>工业视觉系统运维员</h3><p>机器视觉、图像检测与工业视觉应用。</p></article>
+      <article class="course-card reveal"><div class="course-number">PROGRAM 06</div><h3>智能硬件装调员</h3><p>智能设备装配、系统联调与软硬件集成。</p></article>
+      <article class="course-card reveal"><div class="course-number">PROGRAM 07</div><h3>数字孪生应用技术员</h3><p>数字建模、虚拟仿真与数字场景应用。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="industry">
+  <div class="screen-inner">
+    <div class="reveal">
+      <div class="section-tag">INDUSTRY × EDUCATION</div>
+      <h2 class="section-title">产业连接教育<br><span>技术连接人才</span></h2>
+      <p class="section-desc">依托汇博机器人产业资源，推动产业技术、职业教育与技能人才培养深度融合，构建面向先进制造产业的人才培养生态。</p>
+    </div>
+    <div class="industry-grid">
+      <article class="industry-card reveal"><div class="industry-num">01 / EDUCATION</div><h3>专业建设</h3><p>面向院校开展人工智能、机器人及先进制造相关专业建设。</p></article>
+      <article class="industry-card reveal"><div class="industry-num">02 / TRAINING</div><h3>实训基地</h3><p>建设真实设备、真实技术、真实产业场景相结合的实训环境。</p></article>
+      <article class="industry-card reveal"><div class="industry-num">03 / TALENT</div><h3>师资培养</h3><p>面向院校教师开展先进制造技术与产业实践能力提升。</p></article>
+      <article class="industry-card reveal"><div class="industry-num">04 / INDUSTRY</div><h3>企业培训</h3><p>面向企业开展技能人才培训、岗位能力提升及技术应用服务。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="contact">
+  <div class="screen-inner contact reveal">
+    <div class="section-tag">CONTACT HUABO</div>
+    <h2 class="contact-title">与未来同行<span>共建智能人才生态</span></h2>
+    <p class="contact-desc">北京汇博智能培训课程中心<br>培训报名 · 校企合作 · 企业培训 · 实习实践</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#courses">查看培训课程&nbsp; →</a>
+      <a class="btn btn-secondary" href="#home">返回首页</a>
+    </div>
+    <footer class="footer">
+      <div>© 2026 北京汇博智能科技有限公司</div>
+      <div class="footer-tags"><span>ARTIFICIAL INTELLIGENCE</span><span>ROBOTICS</span><span>INTELLIGENT MANUFACTURING</span></div>
+    </footer>
+  </div>
+</section>
+</main>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const menuPanel = document.getElementById("menuPanel");
+
+function closeMenu(){
+  menuPanel.classList.remove("open");
+  menuBtn.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded","false");
+}
+menuBtn.addEventListener("click",()=>{
+  const open = !menuPanel.classList.contains("open");
+  menuPanel.classList.toggle("open",open);
+  menuBtn.classList.toggle("open",open);
+  menuBtn.setAttribute("aria-expanded",String(open));
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener("click",()=>closeMenu());
+});
+document.addEventListener("click",(e)=>{
+  if(!menuPanel.contains(e.target) && !menuBtn.contains(e.target)) closeMenu();
+});
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add("visible");
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
