@@ -2,278 +2,980 @@
 <html lang="zh-CN">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>北京汇博智能培训课程中心</title>
 
+
 <style>
 
-body{
+
+*{
     margin:0;
-    font-family:"Microsoft YaHei",Arial;
-    background:#f5f8fc;
-    color:#222;
+    padding:0;
+    box-sizing:border-box;
 }
 
 
-/*顶部*/
-.header{
-    background:linear-gradient(135deg,#071b3a,#005bea);
+body{
+
+    font-family:
+    "Microsoft YaHei",
+    Arial,
+    sans-serif;
+
+    background:#f4f8fc;
+
+    color:#1a1a1a;
+
+}
+
+
+/* 顶部导航 */
+
+.nav{
+
+    width:100%;
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    padding:25px 8%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
     color:white;
-    padding:60px 20px;
+
+    z-index:10;
+
+}
+
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+
+.nav span{
+
+    font-size:15px;
+
+}
+
+
+
+/* 首页大图 */
+
+.banner{
+
+    height:700px;
+
+    background:
+
+    linear-gradient(
+    rgba(0,20,60,.75),
+    rgba(0,80,180,.65)
+    ),
+
+    url("https://images.unsplash.com/photo-1535378917042-10a22c95931a")
+    center/cover;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
     text-align:center;
+
+    color:white;
+
+
 }
 
 
-.header h1{
-    font-size:32px;
-    margin-bottom:15px;
-}
+
+.banner-content{
 
 
-.header p{
-    font-size:16px;
-}
+    max-width:900px;
 
 
-/按钮/
-.btn{
-    display:inline-block;
-    margin-top:25px;
-    padding:12px 35px;
-    background:white;
-    color:#005bea;
-    border-radius:30px;
-    text-decoration:none;
-}
-
-
-/课程区域/
-.section{
-    padding:30px 20px;
-}
-
-
-.section h2{
-    text-align:center;
-}
-
-
-/卡片/
-.course{
-
-    background:white;
-    border-radius:15px;
     padding:20px;
-    margin:20px 0;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
 
-.course h3{
-    color:#005bea;
+.banner h1{
+
+
+    font-size:52px;
+
+    margin-bottom:25px;
+
 }
 
 
-.course a{
+
+.banner p{
+
+    font-size:22px;
+
+    line-height:1.8;
+
+}
+
+
+
+.btn{
+
+
+    display:inline-block;
+
+    margin-top:40px;
+
+    padding:15px 45px;
+
+    border-radius:40px;
+
+    background:#00a8ff;
 
     color:white;
-    background:#005bea;
 
-    padding:10px 20px;
+    text-decoration:none;
+
+    font-size:18px;
+
+
+}
+
+
+
+/* 数据展示 */
+
+.data{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:-70px auto 50px;
+
+    background:white;
 
     border-radius:20px;
 
-    text-decoration:none;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    padding:40px;
+
 
 }
 
+
+
+.data div{
+
+    text-align:center;
+
+}
+
+
+.data h2{
+
+    color:#0066ff;
+
+    font-size:35px;
+
+}
+
+
+.data p{
+
+    margin-top:10px;
+
+    color:#666;
+
+}
+
+
+
+
+
+/* 通用区域 */
+
+.section{
+
+
+    max-width:1200px;
+
+    width:90%;
+
+    margin:80px auto;
+
+
+}
+
+
+
+.title{
+
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+
+
+.title h2{
+
+    font-size:38px;
+
+    color:#073b88;
+
+}
+
+
+.title p{
+
+    margin-top:15px;
+
+    color:#666;
+
+}
+
+
+
+
+
+/* 公司介绍 */
+
+.about{
+
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:50px;
+
+    line-height:2;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+
+}
+
+
+
+/*课程*/
+
+.courses{
+
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+
+}
+
+
+
+.card{
+
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+
+}
+
+
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+.card h3{
+
+
+    color:#0066ff;
+
+    margin-bottom:15px;
+
+
+}
+
+
+
+.card p{
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+
+
+/*优势*/
+
+.advantages{
+
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
+
+}
+
+
+.adv{
+
+
+background:white;
+
+padding:35px 20px;
+
+border-radius:20px;
+
+text-align:center;
+
+
+}
+
+
+
+.adv h3{
+
+color:#0066ff;
+
+margin-bottom:15px;
+
+
+}
+
+
+
+
+/*底部*/
 
 .footer{
 
-    text-align:center;
-    padding:30px;
-    background:#071b3a;
-    color:white;
+
+background:#061b3a;
+
+color:white;
+
+text-align:center;
+
+padding:40px;
+
+line-height:2;
+
 
 }
+
+
+
+
+
+/*手机适配*/
+
+@media(max-width:768px){
+
+
+.banner{
+
+height:600px;
+
+}
+
+
+.banner h1{
+
+font-size:34px;
+
+}
+
+
+
+.banner p{
+
+font-size:16px;
+
+}
+
+
+
+.data{
+
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+
+
+.courses{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+.advantages{
+
+
+grid-template-columns:repeat(2,1fr);
+
+
+}
+
+
+.about{
+
+padding:25px;
+
+}
+
+
+}
+
+
 
 
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
-<div class="header">
+
+<div class="nav">
+
+
+<div class="logo">
+
+北京汇博智能
+
+</div>
+
+
+<span>
+
+智能制造人才培养基地
+
+</span>
+
+
+</div>
+
+
+
+
+
+
+<section class="banner">
+
+
+<div class="banner-content">
+
 
 <h1>
+
 北京汇博智能培训课程中心
+
 </h1>
 
 
 <p>
-聚焦人工智能、机器人与智能制造领域技能人才培养
+
+聚焦人工智能、机器人与智能制造领域<br>
+
+培养新时代产业技能人才
+
 </p>
 
 
-<a class="btn" href="#course">
-查看课程
+
+<a href="#course" class="btn">
+
+探索课程
+
 </a>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section class="data">
+
+
+<div>
+
+<h2>
+7+
+</h2>
+
+<p>
+职业技能方向
+</p>
 
 
 </div>
 
 
 
-<div class="section" id="course">
-
+<div>
 
 <h2>
-七大职业技能课程
+1000+
+</h2>
+
+<p>
+人才培养经验
+</p>
+
+
+</div>
+
+
+
+<div>
+
+<h2>
+产教融合
+</h2>
+
+<p>
+人才培养模式
+</p>
+
+
+</div>
+
+
+
+<div>
+
+<h2>
+AI+机器人
+</h2>
+
+<p>
+核心技术方向
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="section">
+
+
+<div class="title">
+
+<h2>
+
+关于北京汇博
+
 </h2>
 
 
-
-<div class="course">
-
-<h3>🤖 人工智能训练师</h3>
-
 <p>
-人工智能数据处理、模型训练、
-AI应用开发人才培养。
+
+先进制造人才培养服务平台
+
 </p>
 
-<a href="#">
-查看详情
-</a>
+</div>
+
+
+
+<div class="about">
+
+
+北京汇博智能科技有限公司立足北京昌平，
+聚焦人工智能、先进制造及智能制造领域技能人才培养。
+
+
+<br>
+
+
+依托先进制造人才实训基地，
+开展职业技能培训、职业技能等级认定、
+师资培养、企业技能提升及产教融合项目。
+
+
+<br>
+
+
+公司面向高校师生、企业员工及社会技能人才，
+打造符合产业需求的人才培养体系。
+
 
 </div>
 
 
 
+</section>
 
-<div class="course">
 
-<h3>机器人应用技术员</h3>
+
+
+
+
+
+
+
+<section class="section" id="course">
+
+
+<div class="title">
+
+<h2>
+
+七大职业技能课程
+
+</h2>
 
 <p>
-服务机器人、智能设备应用与维护。
+
+面向人工智能与智能制造产业人才培养
+
 </p>
 
-<a href="#">
-查看详情
-</a>
 
 </div>
 
 
 
+<div class="courses">
 
-<div class="course">
 
-<h3>工业机器人系统运维员</h3>
+
+<div class="card">
+
+<h3>
+人工智能训练师
+</h3>
 
 <p>
-工业机器人安装、调试、维护。
-</p>
 
-<a href="#">
-查看详情
-</a>
+AI数据处理、模型训练、
+视觉算法及人工智能应用。
+
+</p>
 
 </div>
 
 
 
-<div class="course">
 
-<h3>工业机器人系统操作员</h3>
+
+<div class="card">
+
+<h3>
+服务机器人应用技术员
+</h3>
 
 <p>
-工业自动化产线机器人操作。
-</p>
 
-<a href="#">
-查看详情
-</a>
+服务机器人系统应用、
+调试与智能交互。
+
+</p>
 
 </div>
 
 
 
 
-<div class="course">
 
-<h3>工业视觉系统运维员</h3>
+
+<div class="card">
+
+<h3>
+工业机器人系统运维员
+</h3>
 
 <p>
-机器视觉检测、相机调试与应用。
-</p>
 
-<a href="#">
-查看详情
-</a>
+工业机器人安装、
+维护及故障诊断。
+
+</p>
 
 </div>
 
 
 
 
-<div class="course">
 
-<h3>智能硬件装调员</h3>
+
+<div class="card">
+
+<h3>
+工业机器人系统操作员
+</h3>
 
 <p>
-智能设备安装、调试与维护。
-</p>
 
-<a href="#">
-查看详情
-</a>
+自动化产线机器人操作、
+编程与应用。
+
+</p>
 
 </div>
 
 
 
 
-<div class="course">
 
-<h3>数字孪生应用技术员</h3>
+
+
+<div class="card">
+
+<h3>
+工业视觉系统运维员
+</h3>
 
 <p>
-数字化工厂与虚拟仿真应用。
+
+机器视觉检测、
+工业相机调试。
+
 </p>
 
-<a href="#">
-查看详情
-</a>
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<h3>
+智能硬件装调员
+</h3>
+
+<p>
+
+智能设备安装、
+调试与维护。
+
+</p>
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<h3>
+数字孪生应用技术员
+</h3>
+
+<p>
+
+数字化工厂、
+虚拟仿真应用。
+
+</p>
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="section">
+
+
+<div class="title">
+
+<h2>
+
+基地优势
+
+</h2>
+
+
+</div>
+
+
+
+
+<div class="advantages">
+
+
+<div class="adv">
+
+<h3>
+🤖
+
+</h3>
+
+<p>
+智能制造实训
+</p>
+
+
+</div>
+
+
+
+<div class="adv">
+
+<h3>
+🎓
+
+</h3>
+
+<p>
+职业技能认证
+</p>
+
+
+</div>
+
+
+
+<div class="adv">
+
+<h3>
+🏭
+
+</h3>
+
+<p>
+企业项目实践
+</p>
+
+
+</div>
+
+
+
+<div class="adv">
+
+<h3>
+🤝
+
+</h3>
+
+<p>
+校企合作培养
+</p>
+
 
 </div>
 
 
 
 </div>
+
+
+</section>
+
+
+
 
 
 
 <div class="footer">
 
+
 北京汇博智能科技有限公司
 
 <br>
 
-智能制造人才培养基地
+北京昌平先进制造人才实训基地
+
 
 </div>
 
 
 
+
 </body>
+
 
 </html>
