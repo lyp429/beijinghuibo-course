@@ -1,1124 +1,3316 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>北京汇博智能实训基地</title>
+<meta name="description" content="北京汇博智能实训基地，聚焦人工智能、具身智能、机器人、工业视觉与智能制造领域人才培养。">
 
 <link rel="icon" href="images/b48e4e55187ea879ea904f293c4d0094.png">
 
-
 <style>
 
+/* =========================================================
+   北京汇博智能实训基地
+   HUABO INTELLIGENT TRAINING BASE
+   ========================================================= */
+
+:root{
+    --bg:#020711;
+    --bg2:#05101f;
+    --card:#091629;
+    --cyan:#39f5ff;
+    --blue:#178bff;
+    --green:#65ffba;
+    --text:#ffffff;
+    --muted:#99aabd;
+    --line:rgba(112,223,255,.16);
+}
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Microsoft YaHei",Arial;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
 
 body{
+    background:
+        radial-gradient(circle at 80% 10%,rgba(0,126,255,.12),transparent 28%),
+        radial-gradient(circle at 20% 30%,rgba(0,255,211,.06),transparent 25%),
+        #020711;
 
-background:#020814;
-color:white;
-overflow-x:hidden;
+    color:white;
+    font-family:
+        "Microsoft YaHei",
+        "PingFang SC",
+        Arial,
+        sans-serif;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   科技粒子画布
+   ========================================================= */
+
+#particleCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+    opacity:.6;
+}
+
+
+/* =========================================================
+   顶部导航
+   ========================================================= */
+
+.header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:78px;
+
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+
+    background:rgba(2,7,17,.68);
+
+    border-bottom:1px solid rgba(110,231,255,.10);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
 }
 
 
-/* 科技背景 */
+.navbar{
 
-body:before{
+    width:min(1460px,90%);
 
-content:"";
+    margin:auto;
 
-position:fixed;
+    display:flex;
 
-width:100%;
+    align-items:center;
 
-height:100%;
-
-background:
-
-radial-gradient(circle at 20% 30%,rgba(0,180,255,.25),transparent 30%),
-
-radial-gradient(circle at 80% 20%,rgba(0,120,255,.18),transparent 25%);
-
-z-index:-1;
+    justify-content:space-between;
 
 }
 
 
-
-/******** 导航 ********/
-
-
-header{
-
-height:90px;
-
-position:fixed;
-
-top:0;
-
-width:100%;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 8%;
-
-background:rgba(0,8,20,.7);
-
-backdrop-filter:blur(15px);
-
-z-index:99;
-
-}
-
+/* 顶部只放LOGO，不放基地名称 */
 
 .logo{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:18px;
-
-}
-
-
-
-.logo img{
-
-width:65px;
-
-height:65px;
-
-object-fit:contain;
-
-}
-
-
-
-.logo div{
-
-font-size:22px;
-
-font-weight:bold;
-
-}
-
-
-
-.logo small{
-
-display:block;
-
-font-size:11px;
-
-color:#6edcff;
-
-margin-top:5px;
-
-}
-
-
-
-nav a{
-
-color:white;
-
-text-decoration:none;
-
-margin-left:35px;
-
-font-size:16px;
-
-}
-
-
-nav a:hover{
-
-color:#00cfff;
-
-}
-
-
-
-
-
-/******** 首页 ********/
-
-
-.hero{
-
-height:100vh;
-
-display:flex;
-
-align-items:center;
-
-padding:0 8%;
-
-position:relative;
-
-}
-
-
-
-.hero-left{
-
-width:50%;
-
-}
-
-
-.hero h1{
-
-font-size:58px;
-
-line-height:1.25;
-
-}
-
-
-
-.hero h1 span{
-
-color:#00d8ff;
-
-}
-
-
-
-.hero p{
-
-font-size:20px;
-
-color:#cbd5e1;
-
-margin-top:30px;
-
-line-height:2;
-
-}
-
-
-
-.buttons{
-
-margin-top:45px;
-
-}
-
-
-.btn{
-
-display:inline-block;
-
-padding:15px 40px;
-
-border-radius:40px;
-
-background:#00bfff;
-
-color:white;
-
-text-decoration:none;
-
-margin-right:20px;
-
-}
-
-
-
-.btn2{
-
-background:transparent;
-
-border:1px solid #00bfff;
-
-}
-
-
-
-
-/*机器人*/
-
-
-.robot{
-
-
-width:50%;
-
-display:flex;
-
-justify-content:center;
-
-}
-
-
-.robot img{
-
-
-width:600px;
-
-max-width:100%;
-
-
-filter:
-
-drop-shadow(0 0 50px rgba(0,200,255,.8));
-
-
-animation:float 5s infinite;
-
-
-}
-
-
-
-@keyframes float{
-
-50%{
-
-transform:translateY(-20px);
-
-}
-
-}
-
-
-
-
-
-
-
-/******** 数据 ********/
-
-
-.data{
-
-display:flex;
-
-justify-content:center;
-
-gap:80px;
-
-padding:70px 5%;
-
-background:#061326;
-
-}
-
-
-.data div{
-
-text-align:center;
-
-}
-
-
-.data h2{
-
-font-size:45px;
-
-color:#00d9ff;
-
-}
-
-
-
-.data p{
-
-color:#ccc;
-
-margin-top:10px;
-
-}
-
-
-
-
-
-
-/******** 内容 ********/
-
-
-.section{
-
-padding:100px 8%;
-
-}
-
-
-.title{
-
-text-align:center;
-
-font-size:38px;
-
-margin-bottom:60px;
-
-}
-
-
-
-.about{
-
-max-width:1100px;
-
-margin:auto;
-
-font-size:18px;
-
-line-height:2;
-
-color:#d5dbe5;
-
-}
-
-
-
-
-
-
-/******** 优势 ********/
-
-
-.grid{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:25px;
-
-}
-
-
-.box{
-
-
-background:
-
-linear-gradient(
-
-145deg,
-
-#10213b,
-
-#07101f
-
-);
-
-
-padding:35px;
-
-border-radius:20px;
-
-border:1px solid rgba(0,200,255,.2);
-
-}
-
-
-.box h3{
-
-color:#00d9ff;
-
-margin-bottom:20px;
-
-}
-
-
-
-
-
-/******** 课程 ********/
-
-
-.course{
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:25px;
-
-}
-
-
-
-.course-item{
-
-background:#0d1b32;
-
-padding:35px;
-
-border-radius:20px;
-
-}
-
-
-
-.course-item span{
-
-color:#00d9ff;
-
-font-size:14px;
-
-}
-
-
-
-.course-item h3{
-
-margin:15px 0;
-
-font-size:22px;
-
-}
-
-
-
-
-/******** 具身智能 ********/
-
-
-.ai{
-
-background:
-
-linear-gradient(
-
-120deg,
-
-#00395c,
-
-#020814
-
-);
-
-
-text-align:center;
-
-}
-
-
-.ai h2{
-
-font-size:45px;
-
-}
-
-
-.ai p{
-
-font-size:20px;
-
-margin-top:30px;
-
-color:#ddd;
-
-}
-
-
-
-
-
-
-footer{
-
-padding:50px;
-
-text-align:center;
-
-background:#01040b;
-
-color:#aaa;
-
-}
-
-
-
-
-
-/******** 手机 ********/
-
-
-@media(max-width:768px){
-
-
-header{
-
-padding:0 20px;
-
-}
-
-
-.logo div{
-
-font-size:16px;
+    height:42px;
 
 }
 
 
 .logo img{
 
-width:45px;
+    width:210px;
+
+    height:auto;
+
+    max-height:42px;
+
+    object-fit:contain;
+
+    display:block;
 
 }
 
 
-nav{
+/* 导航 */
 
-display:none;
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:42px;
 
 }
 
 
+.nav-links a{
+
+    position:relative;
+
+    color:rgba(255,255,255,.82);
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    letter-spacing:.5px;
+
+    transition:.3s;
+
+}
+
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:-10px;
+
+    width:0;
+    height:2px;
+
+    transform:translateX(-50%);
+
+    background:linear-gradient(
+        90deg,
+        #21e6ff,
+        #39ffbd
+    );
+
+    transition:.3s;
+
+}
+
+
+.nav-links a:hover{
+
+    color:white;
+
+}
+
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+
+.nav-contact{
+
+    padding:10px 22px !important;
+
+    border:1px solid rgba(67,227,255,.4);
+
+    border-radius:30px;
+
+    background:rgba(20,185,255,.06);
+
+}
+
+
+/* 手机菜单按钮 */
+
+.menu-btn{
+
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    background:rgba(255,255,255,.04);
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    gap:5px;
+
+}
+
+
+.menu-btn span{
+
+    width:20px;
+    height:2px;
+
+    background:white;
+
+}
+
+
+/* =========================================================
+   第一屏 HERO
+   ========================================================= */
 
 .hero{
 
-display:block;
+    min-height:100vh;
 
-padding:120px 25px 50px;
+    position:relative;
 
-height:auto;
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    padding-top:78px;
 
 }
 
 
+/* 科技网格 */
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(51,220,255,.045) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(51,220,255,.045) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.9),
+            transparent
+        );
+
+    pointer-events:none;
+
+}
+
+
+/* 右侧科技光圈 */
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:720px;
+    height:720px;
+
+    right:-100px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(33,204,255,.18),
+            rgba(20,97,255,.06) 38%,
+            transparent 68%
+        );
+
+    filter:blur(6px);
+
+}
+
+
+.hero-inner{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(1460px,90%);
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        minmax(480px,.95fr);
+
+    gap:60px;
+
+    align-items:center;
+
+}
+
+
+/* 左侧 */
 
 .hero-left{
 
-width:100%;
+    position:relative;
+
+    z-index:10;
 
 }
 
+
+.hero-eyebrow{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:26px;
+
+    color:#56efff;
+
+    font-size:13px;
+
+    letter-spacing:4px;
+
+}
+
+
+.hero-eyebrow::before{
+
+    content:"";
+
+    width:40px;
+    height:1px;
+
+    background:#4cecff;
+
+    box-shadow:
+        0 0 12px #4cecff;
+
+}
 
 
 .hero h1{
 
-font-size:36px;
+    font-size:clamp(52px,5vw,82px);
+
+    line-height:1.08;
+
+    letter-spacing:-3px;
+
+    font-weight:650;
+
+    margin-bottom:28px;
 
 }
 
 
+.hero h1 .gradient{
 
-.hero p{
+    display:block;
 
-font-size:16px;
+    margin-top:10px;
+
+    color:transparent;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ffffff 0%,
+            #86f5ff 45%,
+            #4affba 100%
+        );
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+}
+
+
+.hero-description{
+
+    max-width:720px;
+
+    font-size:19px;
+
+    color:#a9bbcb;
+
+    line-height:1.9;
 
 }
 
 
-.robot{
+.hero-keywords{
 
-width:100%;
+    display:flex;
 
-margin-top:40px;
+    flex-wrap:wrap;
 
-}
+    gap:12px;
 
-
-.robot img{
-
-width:350px;
+    margin-top:30px;
 
 }
 
 
-.data{
+.keyword{
 
-display:grid;
+    padding:9px 15px;
 
-grid-template-columns:repeat(2,1fr);
+    border-radius:7px;
 
-gap:30px;
+    border:1px solid rgba(89,222,255,.18);
+
+    background:rgba(8,35,55,.38);
+
+    color:#bdebf5;
+
+    font-size:13px;
+
+    backdrop-filter:blur(8px);
 
 }
 
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:16px;
+
+    margin-top:38px;
+
+}
+
+
+.btn-primary,
+.btn-secondary{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:150px;
+
+    height:50px;
+
+    padding:0 30px;
+
+    border-radius:5px;
+
+    text-decoration:none;
+
+    transition:.35s;
+
+    font-size:15px;
+
+}
+
+
+.btn-primary{
+
+    color:#00111b;
+
+    font-weight:600;
+
+    background:
+        linear-gradient(
+            100deg,
+            #4de9ff,
+            #54ffc5
+        );
+
+    box-shadow:
+        0 0 30px rgba(54,218,255,.24);
+
+}
+
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 12px 38px rgba(45,218,255,.35);
+
+}
+
+
+.btn-secondary{
+
+    color:white;
+
+    border:1px solid rgba(105,220,255,.3);
+
+    background:rgba(15,40,58,.26);
+
+}
+
+
+.btn-secondary:hover{
+
+    border-color:#49e8ff;
+
+    background:rgba(45,218,255,.08);
+
+}
+
+
+/* =========================================================
+   HERO机器人
+   ========================================================= */
+
+.robot-area{
+
+    position:relative;
+
+    min-height:650px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.robot-circle{
+
+    position:absolute;
+
+    width:570px;
+    height:570px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(63,229,255,.13);
+
+    animation:rotateCircle 18s linear infinite;
+
+}
+
+
+.robot-circle::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:12px;
+    height:12px;
+
+    top:28px;
+    left:110px;
+
+    border-radius:50%;
+
+    background:#5dffdf;
+
+    box-shadow:
+        0 0 22px #5dffdf;
+
+}
+
+
+.robot-circle-2{
+
+    position:absolute;
+
+    width:460px;
+    height:460px;
+
+    border-radius:50%;
+
+    border:
+        1px dashed
+        rgba(48,175,255,.18);
+
+    animation:
+        rotateCircleReverse
+        24s linear infinite;
+
+}
+
+
+@keyframes rotateCircle{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+@keyframes rotateCircleReverse{
+
+    to{
+        transform:rotate(-360deg);
+    }
+
+}
+
+
+/* Astra Pro2 主图 */
+
+.robot-img{
+
+    position:relative;
+
+    z-index:5;
+
+    width:100%;
+
+    max-width:650px;
+
+    max-height:650px;
+
+    object-fit:contain;
+
+    border-radius:4px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            #000 76%,
+            transparent 100%
+        );
+
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom,
+            #000 76%,
+            transparent 100%
+        );
+
+    filter:
+        drop-shadow(
+            0 20px 45px
+            rgba(0,174,255,.25)
+        );
+
+    animation:
+        robotFloat
+        6s ease-in-out infinite;
+
+}
+
+
+@keyframes robotFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+}
+
+
+/* 机器人标签 */
+
+.robot-label{
+
+    position:absolute;
+
+    right:10px;
+    bottom:65px;
+
+    z-index:10;
+
+    width:270px;
+
+    padding:18px 20px;
+
+    border:1px solid rgba(73,220,255,.22);
+
+    background:rgba(3,16,31,.73);
+
+    backdrop-filter:blur(16px);
+
+    border-radius:10px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.3);
+
+}
+
+
+.robot-label small{
+
+    color:#4fe8ff;
+
+    letter-spacing:2px;
+
+    font-size:10px;
+
+}
+
+
+.robot-label h3{
+
+    margin-top:7px;
+
+    font-size:22px;
+
+    font-weight:500;
+
+}
+
+
+.robot-label p{
+
+    margin-top:8px;
+
+    color:#90a7ba;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   向下滚动提示
+   ========================================================= */
+
+.scroll-tip{
+
+    position:absolute;
+
+    left:50%;
+    bottom:24px;
+
+    transform:translateX(-50%);
+
+    z-index:10;
+
+    color:#71869b;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+}
+
+
+.scroll-line{
+
+    width:1px;
+    height:35px;
+
+    margin:8px auto 0;
+
+    background:
+        linear-gradient(
+            #4cecff,
+            transparent
+        );
+
+}
+
+
+/* =========================================================
+   数据
+   ========================================================= */
+
+.stats{
+
+    position:relative;
+
+    z-index:10;
+
+    border-top:1px solid rgba(81,221,255,.1);
+
+    border-bottom:1px solid rgba(81,221,255,.1);
+
+    background:rgba(4,16,31,.68);
+
+}
+
+
+.stats-inner{
+
+    width:min(1350px,90%);
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+}
+
+
+.stat{
+
+    padding:46px 20px;
+
+    text-align:center;
+
+    border-right:1px solid rgba(81,221,255,.09);
+
+}
+
+
+.stat:last-child{
+
+    border-right:none;
+
+}
+
+
+.stat strong{
+
+    display:block;
+
+    font-size:38px;
+
+    font-weight:500;
+
+    color:#56f0ff;
+
+}
+
+
+.stat span{
+
+    display:block;
+
+    color:#8699aa;
+
+    font-size:13px;
+
+    margin-top:9px;
+
+}
+
+
+/* =========================================================
+   通用Section
+   ========================================================= */
 
 .section{
 
-padding:70px 20px;
+    position:relative;
+
+    z-index:10;
+
+    padding:120px 0;
 
 }
 
 
-.grid{
+.container{
 
-grid-template-columns:1fr;
+    width:min(1320px,90%);
 
-}
-
-
-.course{
-
-grid-template-columns:1fr;
+    margin:auto;
 
 }
 
 
-.ai h2{
+.section-tag{
 
-font-size:32px;
+    color:#4de9ff;
+
+    letter-spacing:4px;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    margin-bottom:15px;
 
 }
 
 
+.section-title{
+
+    font-size:clamp(34px,4vw,54px);
+
+    line-height:1.25;
+
+    font-weight:500;
+
 }
 
+
+.section-desc{
+
+    color:#879cae;
+
+    font-size:16px;
+
+    line-height:1.9;
+
+    margin-top:22px;
+
+}
+
+
+/* =========================================================
+   关于基地
+   ========================================================= */
+
+.about-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+
+.about-image{
+
+    position:relative;
+
+}
+
+
+.about-image img{
+
+    width:100%;
+
+    display:block;
+
+    border-radius:4px;
+
+    box-shadow:
+        0 20px 80px rgba(0,0,0,.42);
+
+}
+
+
+.about-image::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-18px;
+    top:-18px;
+
+    width:110px;
+    height:110px;
+
+    border-top:
+        1px solid #43eaff;
+
+    border-left:
+        1px solid #43eaff;
+
+}
+
+
+.about-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-18px;
+    bottom:-18px;
+
+    width:110px;
+    height:110px;
+
+    border-right:
+        1px solid #43eaff;
+
+    border-bottom:
+        1px solid #43eaff;
+
+}
+
+
+.about-points{
+
+    margin-top:34px;
+
+    display:grid;
+
+    gap:14px;
+
+}
+
+
+.about-point{
+
+    position:relative;
+
+    padding-left:25px;
+
+    color:#c1d1df;
+
+    line-height:1.7;
+
+}
+
+
+.about-point::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:9px;
+
+    width:7px;
+    height:7px;
+
+    border:1px solid #49eaff;
+
+    transform:rotate(45deg);
+
+}
+
+
+/* =========================================================
+   Astra Pro2板块
+   ========================================================= */
+
+.astra-section{
+
+    background:
+
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(0,169,255,.13),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(5,18,34,.4),
+            rgba(2,7,17,.2)
+        );
+
+}
+
+
+.astra-grid{
+
+    display:grid;
+
+    grid-template-columns:.9fr 1.1fr;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+
+.astra-image{
+
+    position:relative;
+
+}
+
+
+.astra-image img{
+
+    width:100%;
+
+    border-radius:8px;
+
+    display:block;
+
+}
+
+
+.tech-list{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
+    margin-top:38px;
+
+}
+
+
+.tech-card{
+
+    min-height:145px;
+
+    padding:22px;
+
+    border:1px solid rgba(77,221,255,.13);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(13,35,60,.65),
+            rgba(4,13,27,.5)
+        );
+
+    transition:.3s;
+
+}
+
+
+.tech-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:
+        rgba(77,221,255,.45);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,53,78,.8),
+            rgba(4,13,27,.55)
+        );
+
+}
+
+
+.tech-card .number{
+
+    font-size:11px;
+
+    color:#4de9ff;
+
+    letter-spacing:2px;
+
+}
+
+
+.tech-card h3{
+
+    margin-top:12px;
+
+    font-size:18px;
+
+    font-weight:500;
+
+}
+
+
+.tech-card p{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    color:#8497a8;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================================
+   七大课程
+   ========================================================= */
+
+.course-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    margin-bottom:55px;
+
+}
+
+
+.course-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+
+}
+
+
+.course-card{
+
+    position:relative;
+
+    min-height:250px;
+
+    padding:30px;
+
+    overflow:hidden;
+
+    background:
+
+        linear-gradient(
+            140deg,
+            rgba(15,39,65,.74),
+            rgba(4,13,27,.88)
+        );
+
+    border:
+        1px solid
+        rgba(91,220,255,.12);
+
+    transition:.4s;
+
+}
+
+
+.course-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:2px;
+
+    transform:scaleX(0);
+
+    transform-origin:left;
+
+    background:
+        linear-gradient(
+            90deg,
+            #40e9ff,
+            #4dffc1
+        );
+
+    transition:.4s;
+
+}
+
+
+.course-card:hover{
+
+    transform:translateY(-7px);
+
+    border-color:
+        rgba(79,228,255,.34);
+
+    box-shadow:
+        0 22px 60px
+        rgba(0,0,0,.28);
+
+}
+
+
+.course-card:hover::before{
+
+    transform:scaleX(1);
+
+}
+
+
+.course-number{
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    color:#45e7ff;
+
+}
+
+
+.course-icon{
+
+    width:46px;
+    height:46px;
+
+    margin-top:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(69,230,255,.25);
+
+    color:#51edff;
+
+    font-size:19px;
+
+}
+
+
+.course-card h3{
+
+    margin-top:22px;
+
+    font-size:21px;
+
+    font-weight:500;
+
+}
+
+
+.course-card p{
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    color:#8196a9;
+
+    line-height:1.75;
+
+}
+
+
+/* 第七张 */
+
+.course-card.featured{
+
+    background:
+
+        linear-gradient(
+            140deg,
+            rgba(13,88,111,.58),
+            rgba(4,13,27,.90)
+        );
+
+}
+
+
+/* =========================================================
+   产教融合
+   ========================================================= */
+
+.integration{
+
+    overflow:hidden;
+
+}
+
+
+.integration-box{
+
+    min-height:430px;
+
+    padding:70px;
+
+    position:relative;
+
+    border:
+        1px solid
+        rgba(70,221,255,.15);
+
+    background:
+
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(54,209,255,.17),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            120deg,
+            #061427,
+            #020712
+        );
+
+}
+
+
+.integration-box::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:360px;
+    height:360px;
+
+    right:-90px;
+    top:-90px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(79,232,255,.13);
+
+    box-shadow:
+
+        0 0 0 45px
+        rgba(79,232,255,.025),
+
+        0 0 0 90px
+        rgba(79,232,255,.018);
+
+}
+
+
+.integration-content{
+
+    max-width:680px;
+
+    position:relative;
+
+    z-index:3;
+
+}
+
+
+.integration h2{
+
+    font-size:44px;
+
+    font-weight:500;
+
+    line-height:1.3;
+
+}
+
+
+.integration p{
+
+    margin-top:24px;
+
+    color:#92a6b7;
+
+    font-size:16px;
+
+    line-height:1.9;
+
+}
+
+
+/* =========================================================
+   联系
+   ========================================================= */
+
+.contact{
+
+    text-align:center;
+
+}
+
+
+.contact-box{
+
+    padding:80px 30px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            rgba(0,157,219,.16),
+            rgba(0,255,195,.05)
+        );
+
+    border:
+        1px solid
+        rgba(75,225,255,.16);
+
+}
+
+
+.contact-box h2{
+
+    font-size:42px;
+
+    font-weight:500;
+
+}
+
+
+.contact-box p{
+
+    color:#93a8ba;
+
+    margin-top:18px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   Footer
+   ========================================================= */
+
+.footer{
+
+    position:relative;
+
+    z-index:10;
+
+    padding:60px 0 35px;
+
+    background:#01040a;
+
+    border-top:
+        1px solid
+        rgba(77,221,255,.10);
+
+}
+
+
+.footer-inner{
+
+    width:min(1320px,90%);
+
+    margin:auto;
+
+}
+
+
+.footer-logo img{
+
+    width:190px;
+    height:auto;
+
+}
+
+
+.footer-info{
+
+    margin-top:25px;
+
+    color:#73889a;
+
+    font-size:13px;
+
+    line-height:2;
+
+}
+
+
+.copyright{
+
+    margin-top:45px;
+
+    padding-top:25px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+
+    color:#526577;
+
+    font-size:12px;
+
+}
+
+
+/* =========================================================
+   滚动出现动画
+   ========================================================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+
+}
+
+
+.reveal.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* =========================================================
+   手机端
+   ========================================================= */
+
+@media(max-width:900px){
+
+    .header{
+        height:68px;
+    }
+
+    .navbar{
+        width:90%;
+    }
+
+    .logo{
+        height:34px;
+    }
+
+    .logo img{
+        width:165px;
+        max-height:34px;
+    }
+
+    .menu-btn{
+        display:flex;
+    }
+
+    .nav-links{
+
+        position:absolute;
+
+        top:68px;
+        left:0;
+
+        width:100%;
+
+        display:none;
+
+        flex-direction:column;
+
+        gap:0;
+
+        padding:12px 20px 24px;
+
+        background:
+            rgba(2,8,18,.97);
+
+        border-bottom:
+            1px solid
+            rgba(75,220,255,.14);
+
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .nav-links a{
+
+        width:100%;
+
+        padding:17px 5px;
+
+        border-bottom:
+            1px solid
+            rgba(255,255,255,.05);
+
+    }
+
+    .nav-contact{
+
+        margin-top:12px;
+
+        text-align:center;
+
+        border-bottom:
+            1px solid
+            rgba(75,220,255,.25)
+            !important;
+
+    }
+
+
+    /* 第一屏 */
+
+    .hero{
+
+        min-height:auto;
+
+        padding:
+            125px 0
+            75px;
+
+    }
+
+    .hero-inner{
+
+        width:88%;
+
+        grid-template-columns:1fr;
+
+        gap:15px;
+
+    }
+
+    .hero h1{
+
+        font-size:42px;
+
+        letter-spacing:-1.8px;
+
+    }
+
+    .hero-description{
+
+        font-size:15px;
+
+        line-height:1.85;
+
+    }
+
+    .hero-eyebrow{
+
+        letter-spacing:2px;
+
+        font-size:10px;
+
+    }
+
+    .hero-buttons{
+
+        margin-top:30px;
+
+    }
+
+    .btn-primary,
+    .btn-secondary{
+
+        min-width:135px;
+
+        height:46px;
+
+        padding:0 20px;
+
+        font-size:14px;
+
+    }
+
+
+    .robot-area{
+
+        min-height:470px;
+
+        margin-top:20px;
+
+    }
+
+    .robot-img{
+
+        width:100%;
+
+        max-width:510px;
+
+        max-height:490px;
+
+    }
+
+    .robot-circle{
+
+        width:400px;
+        height:400px;
+
+    }
+
+    .robot-circle-2{
+
+        width:320px;
+        height:320px;
+
+    }
+
+    .robot-label{
+
+        width:220px;
+
+        right:0;
+        bottom:20px;
+
+    }
+
+    .scroll-tip{
+        display:none;
+    }
+
+
+    /* 数据 */
+
+    .stats-inner{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .stat{
+
+        padding:32px 10px;
+
+    }
+
+    .stat:nth-child(2){
+
+        border-right:none;
+
+    }
+
+    .stat:nth-child(1),
+    .stat:nth-child(2){
+
+        border-bottom:
+            1px solid
+            rgba(81,221,255,.08);
+
+    }
+
+    .stat strong{
+        font-size:29px;
+    }
+
+
+    /* Section */
+
+    .section{
+
+        padding:80px 0;
+
+    }
+
+    .section-title{
+
+        font-size:34px;
+
+    }
+
+    .about-grid,
+    .astra-grid{
+
+        grid-template-columns:1fr;
+
+        gap:55px;
+
+    }
+
+    .astra-grid .astra-image{
+        order:2;
+    }
+
+    .tech-list{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .course-head{
+
+        display:block;
+
+    }
+
+    .course-head .section-desc{
+
+        margin-top:18px;
+
+    }
+
+    .course-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .integration-box{
+
+        min-height:auto;
+
+        padding:50px 28px;
+
+    }
+
+    .integration h2{
+
+        font-size:32px;
+
+    }
+
+}
+
+
+@media(max-width:560px){
+
+    .logo img{
+
+        width:145px;
+
+    }
+
+    .hero{
+
+        padding-top:105px;
+
+    }
+
+    .hero h1{
+
+        font-size:35px;
+
+        line-height:1.15;
+
+    }
+
+    .hero-description{
+
+        font-size:14px;
+
+    }
+
+    .hero-keywords{
+
+        gap:8px;
+
+    }
+
+    .keyword{
+
+        font-size:11px;
+
+        padding:7px 10px;
+
+    }
+
+    .hero-buttons{
+
+        gap:10px;
+
+    }
+
+    .btn-primary,
+    .btn-secondary{
+
+        min-width:0;
+
+        flex:1;
+
+    }
+
+    .robot-area{
+
+        min-height:370px;
+
+    }
+
+    .robot-circle{
+
+        width:310px;
+        height:310px;
+
+    }
+
+    .robot-circle-2{
+
+        width:250px;
+        height:250px;
+
+    }
+
+    .robot-label{
+
+        width:190px;
+
+        padding:13px;
+
+    }
+
+    .robot-label h3{
+
+        font-size:17px;
+
+    }
+
+    .stats-inner{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .section{
+
+        padding:65px 0;
+
+    }
+
+    .container{
+
+        width:88%;
+
+    }
+
+    .section-title{
+
+        font-size:29px;
+
+    }
+
+    .section-desc{
+
+        font-size:14px;
+
+    }
+
+    .about-image::before,
+    .about-image::after{
+
+        width:70px;
+        height:70px;
+
+    }
+
+    .tech-list{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .course-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .course-card{
+
+        min-height:215px;
+
+    }
+
+    .contact-box{
+
+        padding:55px 20px;
+
+    }
+
+    .contact-box h2{
+
+        font-size:29px;
+
+    }
+
+}
 
 </style>
-
-
 </head>
-
-
 
 
 <body>
 
 
+<!-- 科技粒子 -->
+<canvas id="particleCanvas"></canvas>
 
 
-<header>
+<!-- ======================================================
+     顶部导航
+     顶部只有汇博机器人LOGO，不重复写基地名称
+     ====================================================== -->
+
+<header class="header">
+
+    <div class="navbar">
+
+        <a class="logo" href="#home">
+
+            <img
+                src="images/b48e4e55187ea879ea904f293c4d0094.png"
+                alt="汇博机器人"
+            >
+
+        </a>
 
 
-<div class="logo">
+        <nav class="nav-links" id="navLinks">
+
+            <a href="#home">
+                首页
+            </a>
+
+            <a href="#about">
+                基地介绍
+            </a>
+
+            <a href="#astra">
+                具身智能
+            </a>
+
+            <a href="#courses">
+                培训课程
+            </a>
+
+            <a href="#integration">
+                产教融合
+            </a>
+
+            <a
+                href="#contact"
+                class="nav-contact"
+            >
+                报名咨询
+            </a>
+
+        </nav>
 
 
-<img src="images/b48e4e55187ea879ea904f293c4d0094.png">
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="菜单"
+        >
 
+            <span></span>
+            <span></span>
+            <span></span>
 
-<div>
+        </button>
 
-北京汇博智能实训基地
-
-<small>
-HUABO INTELLIGENT TRAINING BASE
-</small>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<nav>
-
-<a href="#">首页</a>
-
-<a href="#about">基地介绍</a>
-
-<a href="#course">培训课程</a>
-
-<a href="#contact">联系我们</a>
-
-
-</nav>
-
-
+    </div>
 
 </header>
 
 
 
+<!-- ======================================================
+     第一屏
+     Astra Pro2官方产品图来源：
+     汇博机器人官网2026-08-12新品发布文章
+     ====================================================== -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="hero-inner">
+
+
+        <div class="hero-left">
+
+
+            <div class="hero-eyebrow">
+
+                HUABO · BEIJING
+
+            </div>
+
+
+            <h1>
+
+                北京汇博智能
+
+                <span class="gradient">
+                    实训基地
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                依托汇博机器人产业与教育生态，
+                聚焦人工智能、具身智能、机器人、
+                工业视觉与智能制造领域，
+                打造面向产业真实需求的高技能人才培养平台。
+
+            </p>
+
+
+            <div class="hero-keywords">
+
+                <span class="keyword">
+                    ARTIFICIAL INTELLIGENCE
+                </span>
+
+                <span class="keyword">
+                    EMBODIED AI
+                </span>
+
+                <span class="keyword">
+                    ROBOTICS
+                </span>
+
+                <span class="keyword">
+                    SMART MANUFACTURING
+                </span>
+
+            </div>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#about"
+                    class="btn-primary"
+                >
+                    探索基地
+                </a>
+
+                <a
+                    href="#courses"
+                    class="btn-secondary"
+                >
+                    培训课程
+                </a>
+
+            </div>
+
+
+        </div>
 
 
 
-<section class="hero">
+        <div class="robot-area">
 
 
-<div class="hero-left">
+            <div class="robot-circle"></div>
+
+            <div class="robot-circle-2"></div>
 
 
-<h1>
+            <!--
+            Astra Pro2 官方产品图片
+            来源：
+            https://www.huiborobot.com/company/1083.html
+            -->
 
-AI驱动未来
-
-<br>
-
-<span>
-
-智能制造人才培养基地
-
-</span>
-
-
-</h1>
+            <img
+                class="robot-img"
+                src="https://q4.itc.cn/images01/20260812/fee475eb4de049fab8ae2bb971b543a7.png"
+                alt="汇博轮臂式具身智能机器人 Astra Pro2"
+            >
 
 
+            <div class="robot-label">
 
-<p>
+                <small>
+                    EMBODIED INTELLIGENCE
+                </small>
 
-依托汇博机器人产业生态，
+                <h3>
+                    Astra Pro2
+                </h3>
 
-聚焦人工智能、机器人、
+                <p>
+                    轮臂一体 · 多模感知 · 开放开发
+                </p>
 
-工业视觉与智能制造技术人才培养。
-
-
-</p>
-
-
-<div class="buttons">
-
-
-<a class="btn">
-了解基地
-</a>
+            </div>
 
 
-<a class="btn btn2">
-课程咨询
-</a>
+        </div>
 
 
-</div>
+    </div>
 
 
+    <div class="scroll-tip">
 
-</div>
+        SCROLL
 
+        <div class="scroll-line"></div>
 
-
-
-<div class="robot">
-
-
-<img src="images/image.png">
-
-
-</div>
-
-
-
+    </div>
 
 </section>
 
 
 
+<!-- ======================================================
+     数据
+     ====================================================== -->
+
+<section class="stats">
+
+    <div class="stats-inner">
+
+        <div class="stat">
+
+            <strong>
+                AI
+            </strong>
+
+            <span>
+                人工智能技术
+            </span>
+
+        </div>
 
 
+        <div class="stat">
 
-<section class="data">
+            <strong>
+                ROBOT
+            </strong>
 
+            <span>
+                机器人技术
+            </span>
 
-<div>
-
-<h2>7+</h2>
-
-<p>智能制造培训方向</p>
-
-</div>
-
-
-<div>
-
-<h2>1000㎡+</h2>
-
-<p>专业实训空间</p>
-
-</div>
+        </div>
 
 
-<div>
+        <div class="stat">
 
-<h2>20+</h2>
+            <strong>
+                7+
+            </strong>
 
-<p>产业合作资源</p>
+            <span>
+                职业技能培训方向
+            </span>
 
-</div>
-
-
-</section>
-
-
-
+        </div>
 
 
+        <div class="stat">
 
-<section class="section" id="about">
+            <strong>
+                P·E·I
+            </strong>
 
+            <span>
+                产 · 教 · 评协同
+            </span>
 
-<h2 class="title">
+        </div>
 
-北京汇博智能实训基地
-
-</h2>
-
-
-
-<div class="about">
-
-
-北京汇博智能科技有限公司立足北京昌平，
-
-依托汇博机器人集团产业资源，
-
-建设面向人工智能与智能制造领域的专业人才培养基地。
-
-
-基地围绕机器人应用、人工智能训练、
-
-工业视觉、智能装备等方向，
-
-开展职业技能培训、校企合作、
-
-产教融合及人才培养服务。
-
-
-</div>
-
+    </div>
 
 </section>
 
 
 
+<!-- ======================================================
+     基地介绍
+     ====================================================== -->
+
+<section
+    class="section"
+    id="about"
+>
+
+    <div class="container">
+
+        <div class="about-grid">
+
+
+            <div class="about-image reveal">
+
+                <!--
+                这里使用你GitHub里原来的机器人产业图片
+                -->
+
+                <img
+                    src="images/image.png"
+                    alt="汇博机器人智能制造产业场景"
+                >
+
+            </div>
 
 
 
+            <div class="reveal">
 
-<section class="section">
+                <div class="section-tag">
+                    ABOUT THE BASE
+                </div>
 
+                <h2 class="section-title">
 
-<h2 class="title">
+                    从产业现场
+                    <br>
+                    到人才培养现场
 
-基地优势
-
-</h2>
-
-
-<div class="grid">
-
-
-<div class="box">
-
-<h3>机器人产业资源</h3>
-
-<p>
-依托机器人企业技术积累，
-连接真实产业应用。
-</p>
-
-</div>
+                </h2>
 
 
+                <p class="section-desc">
 
-<div class="box">
+                    北京汇博智能科技有限公司立足北京昌平，
+                    依托汇博机器人在机器人、人工智能与智能制造领域的产业技术积累，
+                    面向院校师生、企业职工及社会技能人才，
+                    开展职业技能培训、师资研修、实习实践、
+                    企业技能提升与产教融合项目。
 
-<h3>具身智能方向</h3>
-
-<p>
-布局机器人智能交互、
-数据训练与应用场景。
-</p>
-
-</div>
+                </p>
 
 
+                <div class="about-points">
 
-<div class="box">
+                    <div class="about-point">
+                        先进制造与人工智能技能人才培养
+                    </div>
 
-<h3>专业实训设备</h3>
+                    <div class="about-point">
+                        机器人产业真实技术与应用场景导入
+                    </div>
 
-<p>
-机器人、视觉系统、
-智能制造设备。
-</p>
+                    <div class="about-point">
+                        培训、实训、评价、就业协同服务
+                    </div>
 
-</div>
+                    <div class="about-point">
+                        院校专业建设与校企合作
+                    </div>
 
+                </div>
 
-
-<div class="box">
-
-<h3>人才培养体系</h3>
-
-<p>
-职业技能认证、
-就业推荐、
-校企合作。
-</p>
-
-</div>
+            </div>
 
 
-</div>
+        </div>
 
+    </div>
 
 </section>
 
 
 
+<!-- ======================================================
+     Astra Pro2
+     ====================================================== -->
+
+<section
+    class="section astra-section"
+    id="astra"
+>
+
+    <div class="container">
+
+        <div class="astra-grid">
+
+
+            <div class="reveal">
+
+                <div class="section-tag">
+                    EMBODIED INTELLIGENCE
+                </div>
+
+
+                <h2 class="section-title">
+
+                    具身智能，
+                    <br>
+                    从算法走向真实作业
+
+                </h2>
+
+
+                <p class="section-desc">
+
+                    以汇博新一代轮臂式具身智能机器人
+                    Astra Pro2 为代表，
+                    将移动感知、运动控制、智能决策与末端作业能力
+                    融入教学、科研与产业实践。
+
+                </p>
+
+
+                <div class="tech-list">
+
+
+                    <div class="tech-card">
+
+                        <div class="number">
+                            01 / MOBILITY
+                        </div>
+
+                        <h3>
+                            轮臂一体
+                        </h3>
+
+                        <p>
+                            移动底盘与仿人双臂协同，
+                            面向搬运、装配、巡检及服务任务。
+                        </p>
+
+                    </div>
+
+
+                    <div class="tech-card">
+
+                        <div class="number">
+                            02 / PERCEPTION
+                        </div>
+
+                        <h3>
+                            多模态感知
+                        </h3>
+
+                        <p>
+                            视觉、雷达及交互传感能力，
+                            建立环境理解与目标识别能力。
+                        </p>
+
+                    </div>
+
+
+                    <div class="tech-card">
+
+                        <div class="number">
+                            03 / ROS2
+                        </div>
+
+                        <h3>
+                            开放开发
+                        </h3>
+
+                        <p>
+                            支持 ROS2 二次开发，
+                            服务算法验证、科研实训与应用开发。
+                        </p>
+
+                    </div>
+
+
+                    <div class="tech-card">
+
+                        <div class="number">
+                            04 / AI
+                        </div>
+
+                        <h3>
+                            智能决策
+                        </h3>
+
+                        <p>
+                            面向具身智能的数据采集、
+                            模型训练、智能交互及任务执行。
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
 
 
 
-<section class="section" id="course">
+            <div class="astra-image reveal">
+
+                <!-- Astra Pro2 官方发布图片 -->
+
+                <img
+                    src="https://q3.itc.cn/images01/20260812/1d93a82d29924a94a8e93c9552af2811.jpeg"
+                    alt="Astra Pro2 多模态感知"
+                >
+
+            </div>
 
 
-<h2 class="title">
+        </div>
 
-智能制造七大课程
-
-</h2>
-
-
-
-<div class="course">
-
-
-<div class="course-item">
-
-<span>01</span>
-
-<h3>人工智能训练师</h3>
-
-<p>
-数据标注、模型训练、
-AI应用开发。
-</p>
-
-</div>
-
-
-
-<div class="course-item">
-
-<span>02</span>
-
-<h3>服务机器人应用技术员</h3>
-
-<p>
-机器人应用与维护。
-</p>
-
-</div>
-
-
-
-<div class="course-item">
-
-<span>03</span>
-
-<h3>工业机器人系统运维员</h3>
-
-<p>
-机器人维护诊断。
-</p>
-
-</div>
-
-
-
-<div class="course-item">
-
-<span>04</span>
-
-<h3>工业视觉系统运维员</h3>
-
-<p>
-视觉检测与算法应用。
-</p>
-
-</div>
-
-
-
-<div class="course-item">
-
-<span>05</span>
-
-<h3>智能硬件装调员</h3>
-
-<p>
-智能设备装配调试。
-</p>
-
-</div>
-
-
-
-<div class="course-item">
-
-<span>06</span>
-
-<h3>数字孪生应用技术员</h3>
-
-<p>
-数字化工厂应用。
-</p>
-
-</div>
-
-
-
-</div>
-
+    </div>
 
 </section>
 
 
 
+<!-- ======================================================
+     七大课程
+     ====================================================== -->
+
+<section
+    class="section"
+    id="courses"
+>
+
+    <div class="container">
+
+
+        <div class="course-head reveal">
+
+            <div>
+
+                <div class="section-tag">
+                    TRAINING PROGRAM
+                </div>
+
+                <h2 class="section-title">
+                    七大技能人才培养方向
+                </h2>
+
+            </div>
+
+
+            <p class="section-desc">
+
+                面向人工智能、机器人与先进制造产业，
+                建设理论、实训与产业实践相结合的课程体系。
+
+            </p>
+
+        </div>
 
 
 
-<section class="section ai">
+        <div class="course-grid">
 
 
-<h2>
+            <div class="course-card reveal">
 
-具身智能机器人应用中心
+                <div class="course-number">
+                    COURSE 01
+                </div>
 
-</h2>
+                <div class="course-icon">
+                    AI
+                </div>
+
+                <h3>
+                    人工智能训练师
+                </h3>
+
+                <p>
+                    数据标注、数据处理、
+                    模型训练、视觉识别与人工智能应用实践。
+                </p>
+
+            </div>
 
 
-<p>
 
-面向未来机器人产业发展，
+            <div class="course-card reveal">
 
-培养人工智能与机器人融合型技术人才。
+                <div class="course-number">
+                    COURSE 02
+                </div>
 
-</p>
+                <div class="course-icon">
+                    SR
+                </div>
 
+                <h3>
+                    服务机器人应用技术员
+                </h3>
+
+                <p>
+                    服务机器人结构认知、
+                    系统操作、调试维护及应用开发。
+                </p>
+
+            </div>
+
+
+
+            <div class="course-card reveal">
+
+                <div class="course-number">
+                    COURSE 03
+                </div>
+
+                <div class="course-icon">
+                    IO
+                </div>
+
+                <h3>
+                    工业机器人系统操作员
+                </h3>
+
+                <p>
+                    工业机器人操作、
+                    编程、系统应用与生产任务实施。
+                </p>
+
+            </div>
+
+
+
+            <div class="course-card reveal">
+
+                <div class="course-number">
+                    COURSE 04
+                </div>
+
+                <div class="course-icon">
+                    IM
+                </div>
+
+                <h3>
+                    工业机器人系统运维员
+                </h3>
+
+                <p>
+                    工业机器人维护、
+                    系统调试、故障诊断与设备运维。
+                </p>
+
+            </div>
+
+
+
+            <div class="course-card reveal">
+
+                <div class="course-number">
+                    COURSE 05
+                </div>
+
+                <div class="course-icon">
+                    CV
+                </div>
+
+                <h3>
+                    工业视觉系统运维员
+                </h3>
+
+                <p>
+                    机器视觉、图像采集、
+                    视觉检测、系统部署及运维。
+                </p>
+
+            </div>
+
+
+
+            <div class="course-card reveal">
+
+                <div class="course-number">
+                    COURSE 06
+                </div>
+
+                <div class="course-icon">
+                    HW
+                </div>
+
+                <h3>
+                    智能硬件装调员
+                </h3>
+
+                <p>
+                    智能硬件装配、
+                    传感器应用、系统调试与故障处理。
+                </p>
+
+            </div>
+
+
+
+            <div class="course-card featured reveal">
+
+                <div class="course-number">
+                    COURSE 07
+                </div>
+
+                <div class="course-icon">
+                    DT
+                </div>
+
+                <h3>
+                    数字孪生应用技术员
+                </h3>
+
+                <p>
+                    数字建模、虚拟调试、
+                    生产仿真与数字孪生场景应用。
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
 
 </section>
 
 
 
+<!-- ======================================================
+     产教融合
+     ====================================================== -->
+
+<section
+    class="section integration"
+    id="integration"
+>
+
+    <div class="container">
+
+        <div class="integration-box reveal">
+
+            <div class="integration-content">
+
+                <div class="section-tag">
+                    INDUSTRY × EDUCATION
+                </div>
+
+                <h2>
+                    产业技术赋能教育
+                    <br>
+                    人才培养连接产业
+                </h2>
+
+                <p>
+
+                    依托汇博机器人“工业 + 教育”协同发展的产业生态，
+                    将机器人、人工智能、智能制造等产业技术与人才培养相结合，
+                    面向院校开展实训基地建设、师资培养、学生实习实践及专业建设合作，
+                    面向企业开展技术技能人才培训与能力提升。
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#contact"
+                        class="btn-primary"
+                    >
+                        校企合作
+                    </a>
+
+                    <a
+                        href="#contact"
+                        class="btn-secondary"
+                    >
+                        企业培训
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 
-<footer id="contact">
+<!-- ======================================================
+     联系报名
+     ====================================================== -->
+
+<section
+    class="section contact"
+    id="contact"
+>
+
+    <div class="container">
+
+        <div class="contact-box reveal">
+
+            <div class="section-tag">
+                CONTACT US
+            </div>
+
+            <h2>
+                与产业同行，与未来连接
+            </h2>
+
+            <p>
+
+                北京汇博智能实训基地
+                <br>
+                培训报名 · 校企合作 · 企业培训 · 实习实践
+
+            </p>
 
 
-北京汇博智能实训基地
+            <div
+                class="hero-buttons"
+                style="justify-content:center;"
+            >
 
-<br><br>
+                <a
+                    href="javascript:void(0)"
+                    class="btn-primary"
+                >
+                    培训报名
+                </a>
 
-北京市昌平区天宣街9号院
+                <a
+                    href="javascript:void(0)"
+                    class="btn-secondary"
+                >
+                    联系我们
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     Footer
+     ====================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+
+        <div class="footer-logo">
+
+            <img
+                src="images/b48e4e55187ea879ea904f293c4d0094.png"
+                alt="汇博机器人"
+            >
+
+        </div>
+
+
+        <div class="footer-info">
+
+            北京汇博智能实训基地
+            <br>
+
+            北京汇博智能科技有限公司
+            <br>
+
+            北京市昌平区天宣街9号院
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 北京汇博智能科技有限公司
+            · 北京汇博智能实训基地
+
+        </div>
+
+    </div>
 
 </footer>
 
 
 
+<script>
+
+/* =========================================================
+   手机菜单
+   ========================================================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+
+menuBtn.addEventListener(
+    "click",
+    () => {
+
+        navLinks.classList.toggle("active");
+
+    }
+);
+
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(link => {
+
+    link.addEventListener(
+        "click",
+        () => {
+
+            navLinks.classList.remove("active");
+
+        }
+    );
+
+});
+
+
+
+/* =========================================================
+   滚动显示
+   ========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target
+                    .classList
+                    .add("show");
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
+
+
+revealElements.forEach(el => {
+
+    observer.observe(el);
+
+});
+
+
+
+/* =========================================================
+   科技粒子背景
+   ========================================================= */
+
+const canvas =
+    document.getElementById(
+        "particleCanvas"
+    );
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let width;
+let height;
+let particles = [];
+
+
+function resizeCanvas(){
+
+    width =
+        canvas.width =
+        window.innerWidth;
+
+    height =
+        canvas.height =
+        window.innerHeight;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+resizeCanvas();
+
+
+
+class Particle{
+
+    constructor(){
+
+        this.reset();
+
+    }
+
+
+    reset(){
+
+        this.x =
+            Math.random() * width;
+
+        this.y =
+            Math.random() * height;
+
+        this.size =
+            Math.random() * 1.3 + .3;
+
+        this.speedX =
+            (Math.random() - .5) * .13;
+
+        this.speedY =
+            (Math.random() - .5) * .13;
+
+        this.alpha =
+            Math.random() * .45 + .1;
+
+    }
+
+
+    update(){
+
+        this.x += this.speedX;
+
+        this.y += this.speedY;
+
+
+        if(
+            this.x < 0 ||
+            this.x > width ||
+            this.y < 0 ||
+            this.y > height
+        ){
+
+            this.reset();
+
+        }
+
+    }
+
+
+    draw(){
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(
+                84,
+                229,
+                255,
+                ${this.alpha}
+            )`;
+
+        ctx.fill();
+
+    }
+
+}
+
+
+
+function createParticles(){
+
+    particles = [];
+
+    let count;
+
+    if(window.innerWidth < 768){
+
+        count = 38;
+
+    }else{
+
+        count = 80;
+
+    }
+
+
+    for(
+        let i = 0;
+        i < count;
+        i++
+    ){
+
+        particles.push(
+            new Particle()
+        );
+
+    }
+
+}
+
+
+createParticles();
+
+
+
+function animate(){
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    particles.forEach(
+        particle => {
+
+            particle.update();
+
+            particle.draw();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+animate();
+
+
+window.addEventListener(
+    "resize",
+    createParticles
+);
+
+</script>
+
 
 </body>
-
 </html>
