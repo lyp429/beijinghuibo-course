@@ -965,7 +965,7 @@ button{font:inherit}
 /* 一页一页的吸附感 */
 html{
     scroll-snap-type:y mandatory;
-    scroll-padding-top:90px;
+    scroll-padding-top:0;
     overscroll-behavior-y:none;
 }
 
@@ -1150,6 +1150,26 @@ html{
     .card-deck{
         max-width:650px;
     }
+}
+</style>
+
+
+<style>
+/* =========================================================
+   V5 翻页定位修复
+   原因：scroll-padding-top:90px 会让下一屏故意停在顶部下方 90px，
+   所以第一下滚轮时还能看到上一屏底部的 SCROLL 提示。
+   现在改成每一屏精确对齐 viewport 顶部。
+   ========================================================= */
+.hero,
+.home-section{
+    scroll-margin-top:0 !important;
+    scroll-snap-align:start !important;
+    scroll-snap-stop:always !important;
+}
+
+html{
+    scroll-padding-top:0 !important;
 }
 </style>
 
@@ -1677,27 +1697,29 @@ tabs.forEach((tab,index)=>{
 
 <script>
 /* =========================================================
-   V4 强化整页翻页
-   普通鼠标滚轮一次进入下一屏，约 780ms 内锁定，
-   避免一滚跨过两三屏。
+   V5 整页滚动修复
+   - 第一次滚轮就精确进入下一屏
+   - 不再停在上一屏底部与下一屏顶部之间
+   - 一次滚轮只翻一页
    ========================================================= */
 (function(){
-    const pageSections = [
+    const pages = [
         ...document.querySelectorAll(".hero, .home-section")
     ];
 
-    if(!pageSections.length) return;
+    if(!pages.length) return;
 
-    let wheelLocked = false;
+    let locked = false;
+    let currentPage = 0;
+    let unlockTimer = null;
 
-    function nearestSectionIndex(){
-        const y = window.scrollY + window.innerHeight * .42;
-
+    function getClosestPage(){
+        const y = window.scrollY;
         let bestIndex = 0;
         let bestDistance = Infinity;
 
-        pageSections.forEach((section,index)=>{
-            const distance = Math.abs(section.offsetTop - y);
+        pages.forEach((page,index)=>{
+            const distance = Math.abs(page.offsetTop - y);
 
             if(distance < bestDistance){
                 bestDistance = distance;
@@ -1708,43 +1730,69 @@ tabs.forEach((tab,index)=>{
         return bestIndex;
     }
 
+    function goToPage(index){
+        currentPage = Math.max(
+            0,
+            Math.min(index, pages.length - 1)
+        );
+
+        const targetTop = pages[currentPage].offsetTop;
+
+        window.scrollTo({
+            top: targetTop,
+            behavior: "smooth"
+        });
+
+        /*
+          smooth 滚动结束后再精确校准一次。
+          这样浏览器即使受 scroll-snap / 小数像素影响，
+          最终也一定停在 section 顶部。
+        */
+        clearTimeout(unlockTimer);
+
+        unlockTimer = setTimeout(()=>{
+            window.scrollTo({
+                top: pages[currentPage].offsetTop,
+                behavior: "auto"
+            });
+
+            locked = false;
+        }, 760);
+    }
+
     window.addEventListener(
         "wheel",
         function(event){
-            /* 小幅触控板抖动不处理 */
-            if(Math.abs(event.deltaY) < 18) return;
-
-            if(wheelLocked){
-                event.preventDefault();
-                return;
-            }
-
-            const current = nearestSectionIndex();
-
-            let next = current;
-
-            if(event.deltaY > 0){
-                next = Math.min(current + 1, pageSections.length - 1);
-            }else{
-                next = Math.max(current - 1, 0);
-            }
-
-            if(next === current) return;
+            if(Math.abs(event.deltaY) < 16) return;
 
             event.preventDefault();
 
-            wheelLocked = true;
+            if(locked) return;
 
-            pageSections[next].scrollIntoView({
-                behavior:"smooth",
-                block:"start"
-            });
+            locked = true;
+            currentPage = getClosestPage();
 
-            window.setTimeout(()=>{
-                wheelLocked = false;
-            },780);
+            if(event.deltaY > 0){
+                goToPage(currentPage + 1);
+            }else{
+                goToPage(currentPage - 1);
+            }
         },
         {passive:false}
+    );
+
+    /*
+      如果用户拖动滚动条、点锚点或用键盘移动，
+      自动同步当前页索引。
+    */
+    window.addEventListener(
+        "scroll",
+        function(){
+            if(!locked){
+                currentPage = getClosestPage();
+            }
+        },
+        {passive:true}
     );
 })();
 </script>
