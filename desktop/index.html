@@ -16,38 +16,98 @@
 <link rel="stylesheet" href="./css/about.css">
 <link rel="stylesheet" href="./css/embodied.css">
 
+<script defer src="./js/header.js"></script>
 <script defer src="./js/hero.js"></script>
 <script defer src="./js/main.js"></script>
 </head>
 
 <body>
 
-<header class="header">
+<header class="header is-home-top" id="siteHeader">
     <div class="header-inner">
+
         <a class="brand brand-only" href="#home" aria-label="汇博机器人首页">
-            <img class="brand-logo-only" src="../images/logo.png" alt="汇博机器人">
+
+            <!-- 浅色透明状态：新彩色 Logo -->
+            <img
+                class="brand-logo brand-logo-color"
+                src="../images/logo-color.jpg"
+                alt="汇博机器人">
+
+            <!-- 深色 Hover 状态：你原来的网站 Logo -->
+            <img
+                class="brand-logo brand-logo-dark"
+                src="../images/logo.png"
+                alt=""
+                aria-hidden="true">
+
         </a>
 
-        <nav class="header-nav">
-            <a href="#home">首页</a>
-            <a href="#industry">产教融合</a>
-            <a href="#courses">培训课程</a>
-            <a href="#about">基地概况</a>
-            <a href="#embodied">具身智能</a>
-        </nav>
+
+        <div class="header-actions">
+
+            <nav class="header-nav" aria-label="主导航">
+                <a href="#home">首页</a>
+                <a href="#industry">产教融合</a>
+                <a href="#courses">培训课程</a>
+                <a href="#about">基地概况</a>
+                <a href="#embodied">具身智能</a>
+            </nav>
+
+
+            <div class="header-tools">
+
+                <!-- 目前只完成外观，下一步再接搜索逻辑 -->
+                <button
+                    class="header-search"
+                    id="headerSearchBtn"
+                    type="button"
+                    aria-label="搜索"
+                    title="搜索">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="6.6"
+                            stroke="currentColor"
+                            stroke-width="1.7"/>
+                        <path
+                            d="M16 16L21 21"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"/>
+                    </svg>
+
+                </button>
+
+
+                <!-- 目前先做外观，后面可接联系方式弹窗/联系页 -->
+                <button
+                    class="header-contact"
+                    id="headerContactBtn"
+                    type="button">
+                    合作 / 联系
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 </header>
 
-<!--
-    这里不再直接写 5 个页面。
-    main.js 会自动读取 sections 文件夹中的 5 个模块。
-    所以以后修改第二屏时，只改 sections/industry.html 即可。
--->
+
 <main id="site-content">
     <div class="site-loading" id="siteLoading">
         正在加载北京汇博智能实训基地…
     </div>
 </main>
+
 
 <footer class="footer">
     <div class="footer-inner">
