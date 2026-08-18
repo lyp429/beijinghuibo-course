@@ -1,92 +1,543 @@
 /*
   第2屏：产教融合
   =========================================================
-  本文件只控制 第2屏：产教融合。
-  修改这里不会影响第1屏 Hero，也不会影响另外三个篇幅。
+  本文件只控制第2屏。
+  左：学校场景
+  中：四个竖向交互卡片
+  右：企业机械臂场景
 */
 
 .industry-section{
-    min-height:100vh !important;
-    display:flex;
-    align-items:center;
+    position:relative;
+    height:100vh !important;
+    min-height:760px !important;
+    overflow:hidden;
+    isolation:isolate;
     scroll-margin-top:0 !important;
     scroll-snap-align:start !important;
     scroll-snap-stop:always !important;
-    border-top:1px solid rgba(100,177,230,.07);
-    padding:96px 0 72px !important;
+    color:#13243b;
+
+    background:
+        radial-gradient(circle at 14% 70%,rgba(113,161,214,.16),transparent 25%),
+        radial-gradient(circle at 86% 24%,rgba(242,155,75,.14),transparent 24%),
+        linear-gradient(90deg,#f5f9fc 0%,#fbfdff 50%,#fff9f4 100%);
 }
 
-.industry-section .section-inner{
-    width:min(1180px,calc(100% - 80px));
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:360px 1fr;
-    gap:72px;
-    align-items:center;
+/* 第二屏自己的浅色科技网格，不影响其他页面 */
+.industry-section .industry-grid-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:.13;
+
+    background-image:
+        linear-gradient(rgba(19,36,59,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(19,36,59,.045) 1px,transparent 1px);
+
+    background-size:58px 58px;
+    mask-image:linear-gradient(to bottom,transparent 2%,#000 18%,#000 88%,transparent 100%);
 }
 
-.industry-section .section-kicker{
-    color:#617f97;
-    font-size:9px;
-    letter-spacing:.23em;
+/* 中央竖线 */
+.industry-section .industry-split{
+    position:absolute;
+    left:50%;
+    top:190px;
+    bottom:48px;
+    width:1px;
+    z-index:2;
+    transform:translateX(-50%);
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(19,36,59,.10) 10%,
+            rgba(19,36,59,.14) 50%,
+            rgba(19,36,59,.10) 90%,
+            transparent
+        );
 }
 
-.industry-section .section-title{
-    margin:14px 0 14px;
-    font-size:48px;
-    letter-spacing:-.04em;
+.industry-section .industry-split::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    background:#fff;
+    border:1px solid rgba(19,36,59,.14);
+    box-shadow:0 0 0 8px rgba(255,255,255,.76);
 }
 
-.industry-section .section-desc{
+/* 左右竖排文字 */
+.industry-section .industry-side-tag{
+    position:absolute;
+    top:50%;
+    z-index:7;
+    writing-mode:vertical-rl;
+    font-size:12px;
+    letter-spacing:.28em;
+    color:#90a0af;
+}
+
+.industry-section .industry-side-tag-left{
+    left:28px;
+    transform:translateY(-50%) rotate(180deg);
+}
+
+.industry-section .industry-side-tag-right{
+    right:28px;
+    transform:translateY(-50%);
+}
+
+/* 标题 */
+.industry-section .industry-headline{
+    position:absolute;
+    left:50%;
+    top:112px;
+    z-index:8;
+    transform:translateX(-50%);
+    text-align:center;
+    white-space:nowrap;
+}
+
+.industry-section .industry-kicker{
+    margin-bottom:9px;
+    color:#97a3af;
+    font-size:11px;
+    letter-spacing:.38em;
+}
+
+.industry-section .industry-title{
     margin:0;
-    color:#7f98ac;
-    line-height:1.85;
+    color:#13243b;
+    font-size:clamp(34px,3.25vw,62px);
+    font-weight:700;
+    line-height:1.06;
+    letter-spacing:.05em;
+}
+
+.industry-section .industry-title span{
+    padding:0 .12em;
+    color:#a2acb7;
+    font-weight:300;
+}
+
+.industry-section .industry-subtitle{
+    margin:10px 0 0;
+    color:#99a4b0;
     font-size:13px;
-}
-
-.industry-section .detail-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-}
-
-.industry-section .detail-box{
-    scroll-margin-top:100px;
-    min-height:148px;
-    padding:21px;
-    border-radius:16px;
-    border:1px solid rgba(107,188,239,.11);
-    background:linear-gradient(155deg,rgba(8,24,41,.6),rgba(4,13,23,.82));
-    transition:.25s;
-}
-
-.industry-section .detail-box:hover,
-.industry-section .detail-box:target{
-    transform:translateY(-3px);
-    border-color:rgba(91,216,255,.32);
-    box-shadow:0 16px 40px rgba(0,0,0,.26);
-}
-
-.industry-section .detail-box small{
-    color:#4f708a;
-    font-size:8px;
     letter-spacing:.16em;
 }
 
-.industry-section .detail-box h3{
-    margin:21px 0 8px;
-    font-size:16px;
+/* =========================
+   左右场景
+   ========================= */
+
+.industry-section .industry-scene{
+    position:absolute;
+    z-index:3;
 }
 
-.industry-section .detail-box p{
+.industry-section .industry-scene::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    pointer-events:none;
+    border-radius:50%;
+    transform:translateX(-50%);
+    filter:blur(28px);
+    z-index:0;
+}
+
+.industry-section .industry-scene::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    width:76%;
+    height:12%;
+    z-index:0;
+    pointer-events:none;
+    border-radius:50%;
+    transform:translateX(-50%);
+    filter:blur(14px);
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(15,28,45,.13) 0%,
+            rgba(15,28,45,.04) 45%,
+            rgba(15,28,45,0) 74%
+        );
+}
+
+.industry-section .industry-scene img{
+    position:relative;
+    z-index:1;
+    display:block;
+    width:100%;
+    height:auto;
+    object-fit:contain;
+    user-select:none;
+    -webkit-user-drag:none;
+    filter:drop-shadow(0 18px 30px rgba(15,28,45,.10));
+}
+
+/* 左侧学校场景：保持已经确认的比例与位置 */
+.industry-section .industry-school-scene{
+    left:2vw;
+    bottom:26px;
+    width:min(37vw,660px);
+}
+
+.industry-section .industry-school-scene::before{
+    bottom:10%;
+    width:78%;
+    height:72%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(117,167,220,.22),
+            rgba(255,255,255,.45) 42%,
+            rgba(255,255,255,0) 76%
+        );
+}
+
+.industry-section .industry-school-veil{
+    position:absolute;
+    inset:-2% -4% -4% -2%;
+    z-index:2;
+    pointer-events:none;
+    mix-blend-mode:screen;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(245,249,252,0) 0%,
+            rgba(245,249,252,.03) 40%,
+            rgba(245,249,252,.24) 88%,
+            rgba(245,249,252,.40) 100%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(245,249,252,.22) 0%,
+            rgba(245,249,252,0) 22%,
+            rgba(245,249,252,0) 82%,
+            rgba(245,249,252,.10) 100%
+        );
+}
+
+/* 右侧背景柔光：不直接压在机械臂图片上 */
+.industry-section .industry-factory-aura{
+    position:absolute;
+    right:0;
+    top:170px;
+    width:min(40vw,720px);
+    height:min(62vh,720px);
+    z-index:1;
+    pointer-events:none;
+    filter:blur(20px);
+
+    background:
+        radial-gradient(
+            circle at 68% 26%,
+            rgba(255,249,243,.92) 0%,
+            rgba(255,249,243,.68) 18%,
+            rgba(255,249,243,.30) 36%,
+            rgba(255,249,243,0) 68%
+        );
+}
+
+/* 右侧企业场景：保持最后确认的位置 */
+.industry-section .industry-factory-scene{
+    right:3vw;
+    bottom:42px;
+    width:min(28.5vw,545px);
+}
+
+.industry-section .industry-factory-scene::before{
+    bottom:12%;
+    width:86%;
+    height:76%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(248,171,88,.18),
+            rgba(255,251,247,.24) 36%,
+            rgba(255,251,247,0) 72%
+        );
+}
+
+.industry-section .industry-factory-scene img{
+    transform:translate(-10px,-14px) scale(1.02);
+    transform-origin:center bottom;
+}
+
+/* =========================
+   中间四个交互卡片
+   ========================= */
+
+.industry-section .industry-card-column{
+    position:absolute;
+    top:220px;
+    left:50%;
+    z-index:6;
+    width:min(380px,22vw);
+    min-width:340px;
+    transform:translateX(-50%);
+}
+
+.industry-section .industry-cards{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    height:516px;
+}
+
+.industry-section .industry-card{
+    position:relative;
+    flex:1 1 0;
+    min-height:0;
+    padding:17px 18px 15px;
+    overflow:hidden;
+    border-radius:22px;
+    cursor:pointer;
+    color:inherit;
+    text-decoration:none;
+
+    border:1px solid rgba(255,255,255,.78);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.84),
+            rgba(255,255,255,.62)
+        );
+
+    box-shadow:0 18px 50px rgba(17,30,48,.08);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transform:translateZ(0);
+
+    transition:
+        flex .38s cubic-bezier(.2,.75,.25,1),
+        transform .28s ease,
+        opacity .28s ease,
+        box-shadow .28s ease,
+        background .28s ease,
+        border-color .28s ease;
+}
+
+.industry-section .industry-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+
+    background:
+        radial-gradient(circle at 15% 10%,rgba(255,255,255,.72),transparent 38%),
+        linear-gradient(135deg,rgba(255,255,255,.34),transparent 58%);
+}
+
+.industry-section .industry-card::after{
+    content:"";
+    position:absolute;
+    left:18px;
+    right:18px;
+    bottom:13px;
+    height:1px;
+    opacity:0;
+    transform:scaleX(.45);
+    transform-origin:left center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(24,42,64,.16),
+            transparent 72%
+        );
+
+    transition:
+        opacity .28s ease,
+        transform .34s ease;
+}
+
+.industry-section .industry-card small{
+    position:relative;
+    z-index:1;
+    display:block;
+    margin-bottom:7px;
+    color:#9ba7b3;
+    font-size:12px;
+    letter-spacing:.22em;
+}
+
+.industry-section .industry-card h3{
+    position:relative;
+    z-index:1;
     margin:0;
-    color:#728ba0;
-    font-size:11px;
-    line-height:1.75;
+    color:#1a2a40;
+    font-size:18px;
+    line-height:1.2;
+
+    transition:
+        transform .30s ease,
+        font-size .30s ease;
 }
 
+/* 默认隐藏介绍，悬停时展开 */
+.industry-section .industry-card p{
+    position:relative;
+    z-index:1;
+    max-height:0;
+    margin:8px 0 0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(8px);
+
+    color:#748392;
+    font-size:13px;
+    line-height:1.72;
+
+    transition:
+        max-height .36s ease,
+        opacity .28s ease,
+        transform .34s ease;
+}
+
+.industry-section .industry-card-more{
+    position:absolute;
+    right:18px;
+    bottom:14px;
+    z-index:2;
+    opacity:0;
+    transform:translateX(-8px);
+
+    color:#8c98a5;
+    font-size:11px;
+    letter-spacing:.12em;
+
+    transition:
+        opacity .28s ease,
+        transform .28s ease;
+}
+
+/* 鼠标进入整个卡片组后，未选中的三个先轻微压缩 */
+.industry-section .industry-cards:hover .industry-card{
+    flex:.72 1 0;
+    opacity:.68;
+    transform:scale(.985);
+}
+
+/* 当前卡片放大并展开 */
+.industry-section .industry-cards .industry-card:hover,
+.industry-section .industry-cards .industry-card:focus-visible{
+    z-index:4;
+    flex:2.05 1 0;
+    opacity:1;
+    outline:none;
+    transform:scale(1.035);
+
+    border-color:rgba(255,255,255,.96);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.96),
+            rgba(255,255,255,.78)
+        );
+
+    box-shadow:0 26px 66px rgba(17,30,48,.14);
+}
+
+.industry-section .industry-card:hover h3,
+.industry-section .industry-card:focus-visible h3{
+    font-size:20px;
+    transform:translateY(1px);
+}
+
+.industry-section .industry-card:hover p,
+.industry-section .industry-card:focus-visible p{
+    max-height:96px;
+    opacity:1;
+    transform:translateY(0);
+}
+
+.industry-section .industry-card:hover .industry-card-more,
+.industry-section .industry-card:focus-visible .industry-card-more{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.industry-section .industry-card:hover::after,
+.industry-section .industry-card:focus-visible::after{
+    opacity:1;
+    transform:scaleX(1);
+}
+
+.industry-section .industry-card-footer{
+    margin-top:16px;
+    text-align:center;
+    color:#98a2ad;
+    font-size:12px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+}
+
+/* =========================
+   1366 / 1380 宽度适配
+   ========================= */
 @media(max-width:1380px){
-    .industry-section .section-inner{
-        width:calc(100% - 72px);
+
+    .industry-section .industry-school-scene{
+        width:min(34vw,600px);
+    }
+
+    .industry-section .industry-factory-scene{
+        width:min(26.5vw,500px);
+    }
+
+    .industry-section .industry-card-column{
+        width:min(360px,24vw);
+    }
+}
+
+/* 较矮的电脑屏幕 */
+@media(max-height:850px){
+
+    .industry-section .industry-headline{
+        top:102px;
+    }
+
+    .industry-section .industry-title{
+        font-size:44px;
+    }
+
+    .industry-section .industry-card-column{
+        top:190px;
+    }
+
+    .industry-section .industry-cards{
+        height:470px;
+    }
+
+    .industry-section .industry-card{
+        padding:14px 16px;
+    }
+
+    .industry-section .industry-school-scene{
+        width:min(32vw,560px);
+    }
+
+    .industry-section .industry-factory-scene{
+        width:min(25.5vw,465px);
+        bottom:28px;
     }
 }
