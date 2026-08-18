@@ -1,21 +1,29 @@
 /*
-  公共顶部导航状态
+  顶部导航交互
   =========================================================
-
-  首页最顶部：
-  .is-home-top
-
-  离开最顶部：
-  .is-scrolled
-
-  Header 自己的 Hover 视觉完全交给 base.css，
-  JS 这里只负责判断“当前是不是在首页最顶部”。
+  1. 首页顶部：.is-home-top
+  2. 离开顶部：.is-scrolled
+  3. Header Hover 深色与双 Logo 切换交给 CSS
+  4. 搜索按钮目前只实现搜索框 UI 开合
 */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const header =
         document.getElementById("siteHeader");
+
+    const searchBtn =
+        document.getElementById("headerSearchBtn");
+
+    const searchPanel =
+        document.getElementById("headerSearchPanel");
+
+    const searchInput =
+        document.getElementById("headerSearchInput");
+
+    const searchClose =
+        document.getElementById("headerSearchClose");
+
 
     if (!header) {
         return;
@@ -27,10 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateHeaderState() {
 
-        /*
-          24px 内都认为仍处于首页最顶部，
-          避免触摸板 / 浏览器产生 1~2px 微小滚动时反复闪动。
-        */
         const atHomeTop =
             window.scrollY <= 24;
 
@@ -48,11 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         ticking = false;
-
     }
 
 
-    function requestUpdate() {
+    function requestHeaderUpdate() {
 
         if (ticking) {
             return;
@@ -63,7 +66,67 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(
             updateHeaderState
         );
+    }
 
+
+    function openSearch() {
+
+        if (!searchPanel) {
+            return;
+        }
+
+        searchPanel.classList.add(
+            "is-open"
+        );
+
+        searchPanel.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        if (searchBtn) {
+
+            searchBtn.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+        }
+
+
+        setTimeout(() => {
+
+            if (searchInput) {
+                searchInput.focus();
+            }
+
+        }, 120);
+    }
+
+
+    function closeSearch() {
+
+        if (!searchPanel) {
+            return;
+        }
+
+        searchPanel.classList.remove(
+            "is-open"
+        );
+
+        searchPanel.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (searchBtn) {
+
+            searchBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
     }
 
 
@@ -72,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener(
         "scroll",
-        requestUpdate,
+        requestHeaderUpdate,
         {
             passive:true
         }
@@ -81,9 +144,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener(
         "resize",
-        requestUpdate,
+        requestHeaderUpdate,
         {
             passive:true
+        }
+    );
+
+
+    if (searchBtn) {
+
+        searchBtn.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+                const opened =
+                    searchPanel &&
+                    searchPanel.classList.contains(
+                        "is-open"
+                    );
+
+
+                if (opened) {
+                    closeSearch();
+                } else {
+                    openSearch();
+                }
+
+            }
+        );
+
+    }
+
+
+    if (searchClose) {
+
+        searchClose.addEventListener(
+            "click",
+            closeSearch
+        );
+
+    }
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                searchPanel &&
+                !searchPanel.contains(
+                    event.target
+                ) &&
+                searchBtn &&
+                !searchBtn.contains(
+                    event.target
+                )
+            ) {
+
+                closeSearch();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+                closeSearch();
+            }
+
         }
     );
 
