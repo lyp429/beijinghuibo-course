@@ -68,72 +68,356 @@ body::after{
 a{color:inherit;text-decoration:none}
 button{font:inherit}
 
-/* ==================== 公共顶部导航 ==================== */
+
+/* =========================================================
+   公共顶部导航｜V2
+   ---------------------------------------------------------
+   状态 1：首页顶部
+   - 完全透明
+   - 深色字体
+   - 彩色汇博 Logo
+
+   状态 2：首页顶部鼠标移入 Header
+   - 丝滑切换深色玻璃背景
+   - 白色字体
+   - 切换为原来的 logo.png
+
+   状态 3：离开首页顶部 / 进入其他篇幅
+   - 保持透明
+   - 深色字体
+   - 使用彩色汇博 Logo
+
+   注：
+   新彩色 Logo 原图带白底，因此 light 状态使用 mix-blend-mode:multiply
+   让白色区域融入浅色页面，不出现白色矩形。
+   ========================================================= */
+
 .header{
     position:fixed;
     top:0;
     left:0;
     right:0;
     z-index:100;
-    height:90px;
-    background:rgba(2,7,17,.78);
-    border-bottom:1px solid rgba(100,180,235,.07);
-    backdrop-filter:blur(14px);
+
+    height:86px;
+
+    background:rgba(255,255,255,0);
+    border-bottom:1px solid rgba(31,70,105,0);
+
+    transition:
+        background-color .42s cubic-bezier(.2,.72,.2,1),
+        border-color .42s ease,
+        box-shadow .42s ease,
+        backdrop-filter .42s ease;
+
+    backdrop-filter:blur(0);
+    -webkit-backdrop-filter:blur(0);
 }
 
 .header-inner{
-    width:min(1280px,calc(100% - 96px));
+    width:min(1460px,calc(100% - 104px));
     height:100%;
     margin:0 auto;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
+    gap:44px;
 }
 
+
+/* ==================== Logo ==================== */
+
 .brand-only{
+    position:relative;
+    flex:0 0 auto;
+
+    width:214px;
+    height:54px;
+
     display:flex;
     align-items:center;
 }
 
-.brand-logo-only{
+.brand-logo{
+    position:absolute;
+    left:0;
+    top:50%;
+
     display:block;
-    width:148px;
-    height:38px;
+    width:214px;
+    height:54px;
+
     object-fit:contain;
     object-position:left center;
-    filter:drop-shadow(0 0 14px rgba(68,190,255,.12));
+
+    transform:translateY(-50%);
+
+    transition:
+        opacity .30s ease,
+        transform .42s cubic-bezier(.2,.72,.2,1),
+        filter .38s ease;
+}
+
+/* 浅色/透明导航使用新彩色 Logo */
+.brand-logo-color{
+    opacity:1;
+    z-index:2;
+    mix-blend-mode:multiply;
+    filter:
+        saturate(1.02)
+        contrast(1.04);
+}
+
+/* 深色 Hover 导航使用原 logo.png */
+.brand-logo-dark{
+    opacity:0;
+    z-index:3;
+    filter:
+        brightness(0)
+        invert(1)
+        drop-shadow(0 0 14px rgba(78,188,255,.10));
+}
+
+
+/* ==================== 导航右侧整体 ==================== */
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:28px;
 }
 
 .header-nav{
     display:flex;
     align-items:center;
-    gap:40px;
-    color:#a8bac9;
-    font-size:14px;
+
+    gap:34px;
+
+    color:#263b50;
+    font-size:15px;
     font-weight:500;
+    letter-spacing:.01em;
+
+    transition:color .32s ease;
 }
 
 .header-nav a{
     position:relative;
-    padding:10px 0;
-    transition:.25s;
+
+    padding:13px 0;
+
+    white-space:nowrap;
+
+    transition:
+        color .25s ease,
+        transform .25s ease,
+        opacity .25s ease;
 }
 
 .header-nav a::after{
     content:"";
+
     position:absolute;
-    left:0;
-    right:100%;
-    bottom:4px;
-    height:1px;
-    background:linear-gradient(90deg,var(--cyan),var(--blue));
-    transition:.25s;
+
+    left:50%;
+    bottom:6px;
+
+    width:0;
+    height:2px;
+
+    border-radius:99px;
+
+    transform:translateX(-50%);
+
+    background:
+        linear-gradient(
+            90deg,
+            #27bde8,
+            #4d8cff
+        );
+
+    transition:
+        width .28s cubic-bezier(.2,.72,.2,1),
+        opacity .28s ease;
 }
 
-.header-nav a:hover{color:#fff}
-.header-nav a:hover::after{right:0}
+.header-nav a:hover{
+    color:#0d5d93;
+    transform:translateY(-1px);
+}
+
+.header-nav a:hover::after{
+    width:100%;
+}
+
+
+/* ==================== 搜索 + 合作联系 ==================== */
+
+.header-tools{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.header-search{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    padding:0;
+
+    border:0;
+    border-radius:50%;
+
+    color:#243a4f;
+    background:transparent;
+
+    cursor:pointer;
+
+    transition:
+        color .28s ease,
+        background-color .28s ease,
+        transform .28s ease;
+}
+
+.header-search svg{
+    display:block;
+    width:19px;
+    height:19px;
+}
+
+.header-search:hover{
+    color:#167eb6;
+    background:rgba(53,146,204,.08);
+    transform:scale(1.06);
+}
+
+.header-contact{
+    min-width:112px;
+    height:40px;
+
+    padding:0 19px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(53,128,226,.13);
+    border-radius:7px;
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.015em;
+
+    background:
+        linear-gradient(
+            135deg,
+            #247df2 0%,
+            #2f90ff 52%,
+            #3578f5 100%
+        );
+
+    box-shadow:
+        0 8px 24px rgba(38,111,220,.15),
+        inset 0 1px 0 rgba(255,255,255,.20);
+
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        filter .28s ease;
+}
+
+.header-contact:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.04);
+    box-shadow:
+        0 12px 30px rgba(38,111,220,.22),
+        inset 0 1px 0 rgba(255,255,255,.24);
+}
+
+
+/* =========================================================
+   首页顶部 Hover：切深色
+   ========================================================= */
+
+.header.is-home-top:hover{
+    background:rgba(5,12,22,.92);
+    border-bottom-color:rgba(111,193,241,.10);
+
+    box-shadow:
+        0 14px 42px rgba(4,16,29,.16);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
+
+.header.is-home-top:hover .header-nav{
+    color:#e8f1f8;
+}
+
+.header.is-home-top:hover .header-nav a:hover{
+    color:#ffffff;
+}
+
+.header.is-home-top:hover .brand-logo-color{
+    opacity:0;
+    transform:
+        translateY(-50%)
+        scale(.97);
+}
+
+.header.is-home-top:hover .brand-logo-dark{
+    opacity:1;
+    transform:
+        translateY(-50%)
+        scale(1);
+}
+
+.header.is-home-top:hover .header-search{
+    color:#eef7fd;
+}
+
+.header.is-home-top:hover .header-search:hover{
+    color:#ffffff;
+    background:rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   非首页顶部
+   保持透明 + 新彩色 Logo
+   ========================================================= */
+
+.header.is-scrolled{
+    background:rgba(255,255,255,0);
+    border-bottom-color:rgba(50,98,134,.06);
+    box-shadow:none;
+
+    backdrop-filter:blur(0);
+    -webkit-backdrop-filter:blur(0);
+}
+
+.header.is-scrolled .brand-logo-color{
+    opacity:1;
+}
+
+.header.is-scrolled .brand-logo-dark{
+    opacity:0;
+}
+
+.header.is-scrolled .header-nav{
+    color:#263b50;
+}
+
 
 /* ==================== 5 屏公共翻页规则 ==================== */
+
 .hero,
 .home-section{
     scroll-margin-top:0 !important;
@@ -141,7 +425,9 @@ button{font:inherit}
     scroll-snap-stop:always !important;
 }
 
+
 /* ==================== 公共 Footer ==================== */
+
 .footer{
     height:100px;
     border-top:1px solid rgba(100,177,230,.07);
@@ -176,20 +462,46 @@ button{font:inherit}
     line-height:1.8;
 }
 
+
+/* ==================== 中等桌面 ==================== */
+
 @media(max-width:1380px){
-    body{min-width:1024px}
+
+    body{
+        min-width:1024px;
+    }
 
     .header-inner,
     .footer-inner{
         width:calc(100% - 72px);
     }
 
-    .header-nav{
-        gap:30px;
-        font-size:13px;
+    .brand-only{
+        width:188px;
     }
 
-    .brand-logo-only{
-        width:132px;
+    .brand-logo{
+        width:188px;
+        height:48px;
+    }
+
+    .header-actions{
+        gap:21px;
+    }
+
+    .header-nav{
+        gap:25px;
+        font-size:14px;
+    }
+
+    .header-tools{
+        gap:10px;
+    }
+
+    .header-contact{
+        min-width:102px;
+        height:38px;
+        padding:0 16px;
+        font-size:13px;
     }
 }
