@@ -1,39 +1,97 @@
-<!-- 第2屏：产教融合｜以后只修改本文件 + ../css/industry.css -->
+<!-- 第2屏：产教融合｜本文件只控制第2屏结构 -->
 <section class="home-section industry-section" id="industry">
-    <div class="section-inner">
-        <div>
-            <div class="section-kicker">INDUSTRY × EDUCATION</div>
-            <h2 class="section-title">产教融合</h2>
-            <p class="section-desc">
-                连接院校、企业与产业需求，通过专业共建、企业协同、
-                人才培养与产业资源整合，形成先进制造人才培养闭环。
-            </p>
+
+    <div class="industry-grid-bg" aria-hidden="true"></div>
+    <div class="industry-split" aria-hidden="true"></div>
+    <div class="industry-side-tag industry-side-tag-left" aria-hidden="true">
+        EDUCATION · 学校
+    </div>
+    <div class="industry-side-tag industry-side-tag-right" aria-hidden="true">
+        INDUSTRY · 企业
+    </div>
+
+    <header class="industry-headline">
+        <div class="industry-kicker">INDUSTRY × EDUCATION</div>
+        <h2 class="industry-title">
+            产教融合 <span>/</span> 双向成长
+        </h2>
+        <p class="industry-subtitle">从课堂走向真实产业现场</p>
+    </header>
+
+    <!-- 左侧：院校学习场景 -->
+    <div class="industry-scene industry-school-scene" aria-hidden="true">
+        <img src="../images/industry-school.png" alt="">
+        <div class="industry-school-veil"></div>
+    </div>
+
+    <!-- 右侧：企业产业场景 -->
+    <div class="industry-factory-aura" aria-hidden="true"></div>
+
+    <div class="industry-scene industry-factory-scene" aria-hidden="true">
+        <img src="../images/industry-factory.png" alt="">
+    </div>
+
+    <!-- 中间：四个交互入口 -->
+    <div class="industry-card-column">
+        <div class="industry-cards">
+
+            <a class="industry-card"
+               id="school"
+               href="./industry/school.html"
+               aria-label="进入院校合作页面">
+                <small>01</small>
+                <h3>院校合作</h3>
+                <p>
+                    围绕专业共建、课程开发、师资研修、实训基地与学生实践，
+                    推动教学内容与产业需求衔接。
+                </p>
+                <span class="industry-card-more">查看详情 ↗</span>
+            </a>
+
+            <a class="industry-card"
+               id="enterprise"
+               href="./industry/enterprise.html"
+               aria-label="进入企业合作页面">
+                <small>02</small>
+                <h3>企业合作</h3>
+                <p>
+                    面向企业真实岗位和项目场景，开展技能提升、项目协同与人才供需对接，
+                    强化产业实践。
+                </p>
+                <span class="industry-card-more">查看详情 ↗</span>
+            </a>
+
+            <a class="industry-card"
+               id="talent"
+               href="./industry/talent.html"
+               aria-label="进入人才培养页面">
+                <small>03</small>
+                <h3>人才培养</h3>
+                <p>
+                    贯通学习、实训、评价、认证与就业环节，
+                    构建从能力培养到职业发展的连续成长路径。
+                </p>
+                <span class="industry-card-more">查看详情 ↗</span>
+            </a>
+
+            <a class="industry-card"
+               id="ecosystem"
+               href="./industry/ecosystem.html"
+               aria-label="进入产业生态页面">
+                <small>04</small>
+                <h3>产业生态</h3>
+                <p>
+                    连接院校、企业、基地、评价机构与产业资源，
+                    形成多方协同、持续循环的产教融合生态。
+                </p>
+                <span class="industry-card-more">查看详情 ↗</span>
+            </a>
+
         </div>
 
-        <div class="detail-grid">
-            <article class="detail-box" id="school">
-                <small>01 / SCHOOL</small>
-                <h3>院校合作</h3>
-                <p>专业建设、课程共建、师资研修、学生实习实践及实训基地建设。</p>
-            </article>
-
-            <article class="detail-box" id="enterprise">
-                <small>02 / ENTERPRISE</small>
-                <h3>企业合作</h3>
-                <p>面向企业真实岗位与产业场景，开展技能提升、人才培养及项目协同。</p>
-            </article>
-
-            <article class="detail-box" id="talent">
-                <small>03 / TALENT</small>
-                <h3>人才培养</h3>
-                <p>以岗位能力为导向，衔接培训、实训、评价与就业发展。</p>
-            </article>
-
-            <article class="detail-box" id="ecosystem">
-                <small>04 / ECOSYSTEM</small>
-                <h3>产业生态</h3>
-                <p>联动院校、企业、培训评价机构与产业资源，构建协同育人生态。</p>
-            </article>
+        <div class="industry-card-footer">
+            LEARN · PRACTICE · INDUSTRY · GROWTH
         </div>
     </div>
+
 </section>
