@@ -5,48 +5,61 @@
   1. 加载5个独立页面模块
   2. 初始化首页Hero交互
   3. 一滚一页翻页
-  4. 修复刷新后自动跳到基地概况的问题
+  4. 刷新时仍回到首页
+  5. 支持从子页面通过 index.html#industry 返回指定篇幅
 */
 
 
 // =====================================================
-// 刷新定位修复
+// 初始定位
 // =====================================================
 
-// 禁止浏览器记忆刷新前滚动位置
 if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
 }
 
 
-// 刷新时清除锚点，并回到第一页
-function resetHomePosition(){
+// 判断这一次进入网站是不是“刷新”
+const navigationEntry =
+    performance.getEntriesByType("navigation")[0];
 
-    // 如果地址栏有 #about / #courses 等
-    // 清除它
-    if(location.hash){
+const isReloadNavigation =
+    navigationEntry &&
+    navigationEntry.type === "reload";
 
-        history.replaceState(
-            null,
-            "",
-            location.pathname + location.search
-        );
+
+// 记录用户进入网站时原本携带的锚点
+// 例如：index.html#industry
+const requestedHash = location.hash;
+
+
+// 只有“刷新”时才清除锚点并强制回首页。
+// 正常从子页面返回 index.html#industry 时，不清除锚点。
+function prepareInitialPosition(){
+
+    if(isReloadNavigation){
+
+        if(location.hash){
+
+            history.replaceState(
+                null,
+                "",
+                location.pathname + location.search
+            );
+
+        }
+
+        window.scrollTo({
+            top:0,
+            left:0,
+            behavior:"auto"
+        });
 
     }
 
-
-    // 回到顶部
-    window.scrollTo({
-        top:0,
-        left:0,
-        behavior:"auto"
-    });
-
 }
 
-
-// 页面开始加载立即执行
-resetHomePosition();
+prepareInitialPosition();
 
 
 
@@ -59,7 +72,6 @@ async()=>{
         document.getElementById("site-content");
 
 
-    // 五个独立模块
     const modules=[
 
         "./sections/hero.html",
@@ -80,7 +92,6 @@ async()=>{
 
 
         // 加载5个页面
-
         const htmlList =
         await Promise.all(
 
@@ -114,15 +125,13 @@ async()=>{
 
 
 
-        // 插入页面
-
+        // 插入5个模块
         content.innerHTML =
         htmlList.join("\n");
 
 
 
-        // 初始化第一页卡片交互
-
+        // 初始化第一页交互
         if(
             typeof window.initHero === "function"
         ){
@@ -133,70 +142,77 @@ async()=>{
 
 
 
+        // =================================================
+        // 模块全部加载后决定应该停在哪一屏
+        // =================================================
 
-        // ===========================
-        // 重点修复
-        // 模块加载完成后再次回首页
-        // ===========================
+        function positionAfterModulesLoaded(){
+
+            // 刷新：仍然回首页
+            if(isReloadNavigation){
+
+                window.scrollTo({
+                    top:0,
+                    left:0,
+                    behavior:"auto"
+                });
+
+                return;
+
+            }
 
 
-        window.scrollTo({
+            // 正常通过 #industry / #courses 等进入：
+            // 加载完模块后定位到对应页面
+            if(requestedHash){
 
-            top:0,
+                const target =
+                    document.querySelector(requestedHash);
 
-            left:0,
+                if(target){
 
-            behavior:"auto"
+                    window.scrollTo({
+                        top:target.offsetTop,
+                        left:0,
+                        behavior:"auto"
+                    });
 
-        });
+                    return;
+
+                }
+
+            }
 
 
+            // 普通进入网站：第一页
+            window.scrollTo({
+                top:0,
+                left:0,
+                behavior:"auto"
+            });
 
-        // 等浏览器布局完成后再次确认
+        }
+
+
 
         requestAnimationFrame(()=>{
 
-
             requestAnimationFrame(()=>{
 
-
-                window.scrollTo({
-
-                    top:0,
-
-                    left:0,
-
-                    behavior:"auto"
-
-                });
-
-
+                positionAfterModulesLoaded();
 
                 initFullPageScroll();
 
-
             });
-
 
         });
 
 
 
-        // 最后一层保险
-
+        // 最后一层保险，但不再无条件强制回首页
         setTimeout(()=>{
 
-
-            window.scrollTo({
-
-                top:0,
-
-                left:0,
-
-                behavior:"auto"
-
-            });
-
+            positionAfterModulesLoaded();
 
         },300);
 
@@ -269,9 +285,7 @@ function initFullPageScroll(){
 
 
 
-
     // 找当前所在页
-
     function getCurrentPage(){
 
 
@@ -321,9 +335,7 @@ function initFullPageScroll(){
 
 
 
-
     // 跳转页面
-
     function goPage(index){
 
 
@@ -384,7 +396,6 @@ function initFullPageScroll(){
 
 
     // 鼠标滚轮控制
-
     window.addEventListener(
 
         "wheel",
@@ -407,7 +418,6 @@ function initFullPageScroll(){
 
 
 
-
             if(locked){
 
                 return;
@@ -422,7 +432,6 @@ function initFullPageScroll(){
 
             currentPage =
             getCurrentPage();
-
 
 
 
@@ -460,9 +469,7 @@ function initFullPageScroll(){
 
 
 
-
     // 手动拖动滚动条时同步页码
-
     window.addEventListener(
 
         "scroll",
