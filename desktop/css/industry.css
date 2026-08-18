@@ -24,6 +24,54 @@
         linear-gradient(90deg,#f5f9fc 0%,#fbfdff 50%,#fff9f4 100%);
 }
 
+/*
+  第一屏 → 第二屏的过渡层
+  不改变第二屏现有排版，只把顶部硬切线柔化。
+*/
+.industry-section::before{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    height:165px;
+    z-index:1;
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(2,7,17,.98) 0%,
+            rgba(4,15,27,.88) 13%,
+            rgba(20,42,61,.58) 30%,
+            rgba(87,112,132,.24) 52%,
+            rgba(220,230,238,.12) 70%,
+            rgba(245,249,252,0) 100%
+        );
+}
+
+/* 边界处增加一层很轻的蓝灰雾光，让深色Hero自然融入浅色第二屏 */
+.industry-section::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:72px;
+    height:115px;
+    z-index:1;
+    pointer-events:none;
+    opacity:.58;
+    filter:blur(22px);
+
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(93,153,192,.22) 0%,
+            rgba(93,153,192,.08) 42%,
+            rgba(93,153,192,0) 78%
+        );
+}
+
 /* 第二屏自己的浅色科技网格，不影响其他页面 */
 .industry-section .industry-grid-bg{
     position:absolute;
