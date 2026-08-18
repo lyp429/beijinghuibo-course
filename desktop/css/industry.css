@@ -1,0 +1,92 @@
+/*
+  第2屏：产教融合
+  =========================================================
+  本文件只控制 第2屏：产教融合。
+  修改这里不会影响第1屏 Hero，也不会影响另外三个篇幅。
+*/
+
+.industry-section{
+    min-height:100vh !important;
+    display:flex;
+    align-items:center;
+    scroll-margin-top:0 !important;
+    scroll-snap-align:start !important;
+    scroll-snap-stop:always !important;
+    border-top:1px solid rgba(100,177,230,.07);
+    padding:96px 0 72px !important;
+}
+
+.industry-section .section-inner{
+    width:min(1180px,calc(100% - 80px));
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:72px;
+    align-items:center;
+}
+
+.industry-section .section-kicker{
+    color:#617f97;
+    font-size:9px;
+    letter-spacing:.23em;
+}
+
+.industry-section .section-title{
+    margin:14px 0 14px;
+    font-size:48px;
+    letter-spacing:-.04em;
+}
+
+.industry-section .section-desc{
+    margin:0;
+    color:#7f98ac;
+    line-height:1.85;
+    font-size:13px;
+}
+
+.industry-section .detail-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.industry-section .detail-box{
+    scroll-margin-top:100px;
+    min-height:148px;
+    padding:21px;
+    border-radius:16px;
+    border:1px solid rgba(107,188,239,.11);
+    background:linear-gradient(155deg,rgba(8,24,41,.6),rgba(4,13,23,.82));
+    transition:.25s;
+}
+
+.industry-section .detail-box:hover,
+.industry-section .detail-box:target{
+    transform:translateY(-3px);
+    border-color:rgba(91,216,255,.32);
+    box-shadow:0 16px 40px rgba(0,0,0,.26);
+}
+
+.industry-section .detail-box small{
+    color:#4f708a;
+    font-size:8px;
+    letter-spacing:.16em;
+}
+
+.industry-section .detail-box h3{
+    margin:21px 0 8px;
+    font-size:16px;
+}
+
+.industry-section .detail-box p{
+    margin:0;
+    color:#728ba0;
+    font-size:11px;
+    line-height:1.75;
+}
+
+@media(max-width:1380px){
+    .industry-section .section-inner{
+        width:calc(100% - 72px);
+    }
+}

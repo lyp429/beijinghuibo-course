@@ -1,0 +1,792 @@
+/*
+  第1屏：首页 Hero
+  ============================
+  当前版本已基本定稿。
+  以后修改第2/3/4/5屏时，不要改这个文件。
+*/
+/* ==================== HERO ==================== */
+.hero{
+    position:relative;
+    min-height:100vh;
+    padding:110px 0 54px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+.hero-inner{
+    width:min(1280px,calc(100% - 96px));
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:minmax(650px,1.14fr) minmax(440px,.86fr);
+    align-items:center;
+    gap:54px;
+}
+.hero-copy{
+    position:relative;
+    z-index:5;
+}
+.hero-kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:7px 12px;
+    border:1px solid rgba(95,211,255,.12);
+    border-radius:999px;
+    background:rgba(7,24,41,.48);
+    color:#91bdd2;
+    font-size:10px;
+    letter-spacing:.06em;
+    box-shadow:inset 0 0 20px rgba(51,170,255,.035);
+}
+.hero-kicker::before{
+    content:"";
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#62e9ff;
+    box-shadow:0 0 12px rgba(87,230,255,.9);
+}
+.hero h1{
+    margin:22px 0 16px;
+    font-size:66px;
+    line-height:.98;
+    letter-spacing:-.055em;
+    font-weight:750;
+}
+.hero h1 .accent{
+    color:#bcefff;
+    background:linear-gradient(90deg,#f4fbff 0%,#dff8ff 35%,#66cfff 76%,#4b91ff 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 22px rgba(76,183,255,.12));
+}
+.hero-desc{
+    width:min(650px,100%);
+    margin:0 0 18px;
+    color:#819aad;
+    line-height:1.85;
+    font-size:14px;
+}
+
+/* ==================== 红色圈位置：四个模块标签 ==================== */
+.module-tabs{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px 22px;
+    min-height:32px;
+    margin:0 0 16px;
+}
+.module-tab{
+    appearance:none;
+    border:0;
+    outline:0;
+    padding:4px 0;
+    background:transparent;
+    color:#718b9f;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    transition:.25s ease;
+}
+.module-tab .dot{
+    position:relative;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#3c6079;
+    transition:.25s ease;
+}
+.module-tab.active{
+    color:#dff9ff;
+}
+.module-tab.active .dot{
+    transform:scale(1.5);
+    background:#6cecff;
+    box-shadow:
+        0 0 10px #5ee7ff,
+        0 0 22px rgba(68,190,255,.68);
+}
+.module-tab.active .dot::before,
+.module-tab.active .dot::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:#74efff;
+    box-shadow:0 0 8px rgba(87,228,255,.9);
+    animation:dotParticle 1.4s ease-in-out infinite;
+}
+.module-tab.active .dot::before{
+    width:2px;height:2px;
+    left:-7px;top:-4px;
+}
+.module-tab.active .dot::after{
+    width:2px;height:2px;
+    right:-7px;bottom:-4px;
+    animation-delay:.65s;
+}
+@keyframes dotParticle{
+    50%{transform:translateY(-3px);opacity:.35}
+}
+
+/* 黄色圈内容彻底删除，没有按钮 */
+
+/* ==================== 蓝色圈位置：四卡片 ==================== */
+.card-deck{
+    position:relative;
+    height:382px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:8px 0 4px;
+}
+.nav-card{
+    position:relative;
+    flex:1 1 0;
+    min-width:0;
+    height:184px;
+    padding:21px 16px;
+    overflow:hidden;
+    border-radius:16px;
+    border:1px solid rgba(105,191,248,.13);
+    background:
+        linear-gradient(180deg,rgba(9,27,47,.73),rgba(4,14,26,.88));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.012);
+    transition:
+        flex .42s cubic-bezier(.2,.72,.2,1),
+        height .42s cubic-bezier(.2,.72,.2,1),
+        transform .42s cubic-bezier(.2,.72,.2,1),
+        opacity .32s ease,
+        filter .32s ease,
+        border-color .32s ease,
+        box-shadow .32s ease;
+    cursor:default;
+}
+.nav-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(180deg,rgba(84,213,255,.045),transparent 36%),
+        radial-gradient(circle at 90% 10%,rgba(52,149,255,.09),transparent 26%);
+}
+
+/* 蓝色光条沿卡片边框跑一圈 */
+.nav-card::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:inherit;
+    padding:1px;
+    background:
+        conic-gradient(
+            from var(--angle),
+            transparent 0deg 250deg,
+            rgba(83,182,255,.03) 255deg,
+            rgba(70,217,255,.14) 270deg,
+            #78f0ff 286deg,
+            rgba(63,124,255,.82) 302deg,
+            rgba(57,103,255,.08) 320deg,
+            transparent 336deg 360deg
+        );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:0;
+    pointer-events:none;
+    animation:borderRun 2.3s linear infinite;
+}
+@property --angle{
+    syntax:"<angle>";
+    initial-value:0deg;
+    inherits:false;
+}
+@keyframes borderRun{
+    to{--angle:360deg}
+}
+
+.nav-card.active{
+    flex:2.72 1 0;
+    height:360px;
+    transform:translateY(-8px);
+    z-index:10;
+    border-color:rgba(89,217,255,.38);
+    box-shadow:
+        0 26px 65px rgba(0,0,0,.42),
+        0 0 36px rgba(39,156,255,.11);
+}
+.nav-card.active::before{opacity:1}
+
+.card-deck.has-active .nav-card:not(.active){
+    flex:.72 1 0;
+    height:168px;
+    opacity:.48;
+    filter:saturate(.72);
+}
+
+/* 卡片文字 */
+.card-index{
+    position:absolute;
+    right:14px;
+    top:13px;
+    z-index:2;
+    color:#45637b;
+    font-size:9px;
+}
+.card-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+}
+.card-en{
+    color:#5d7b93;
+    font-size:8px;
+    letter-spacing:.14em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.card-title{
+    margin:11px 0 7px;
+    font-size:19px;
+    font-weight:600;
+    white-space:nowrap;
+}
+.nav-card.active .card-title{
+    font-size:21px;
+}
+.card-title a{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+.card-title a::after{
+    content:"↗";
+    color:#4f738d;
+    font-size:9px;
+    transition:.2s;
+}
+.card-title a:hover::after{
+    color:#77edff;
+    transform:translate(2px,-2px);
+}
+.card-sub{
+    margin:0;
+    color:#6b8599;
+    font-size:10px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.card-line{
+    width:30px;
+    height:1px;
+    margin:14px 0 9px;
+    background:linear-gradient(90deg,#69eaff,transparent);
+}
+.card-list{
+    display:grid;
+    gap:0;
+    opacity:0;
+    transform:translateY(8px);
+    pointer-events:none;
+    transition:.28s ease;
+}
+.nav-card.active .card-list{
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+}
+.card-link{
+    min-height:31px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    border-bottom:1px solid rgba(98,177,230,.08);
+    color:#9fb5c7;
+    font-size:10.5px;
+    line-height:1.35;
+    transition:.18s;
+}
+.card-link span:first-child{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.nav-card.active .card-link span:first-child{
+    overflow:visible;
+    text-overflow:clip;
+}
+.card-link span:last-child{
+    flex:0 0 auto;
+    color:#486982;
+    font-size:8px;
+}
+.card-link:hover{
+    color:#e2fbff;
+    padding-left:4px;
+    border-color:rgba(96,217,255,.18);
+}
+
+/* ==================== 右侧机器人 ==================== */
+.robot-stage{
+    position:relative;
+    height:650px;
+    display:grid;
+    place-items:center;
+}
+.robot-glow{
+    position:absolute;
+    width:88%;
+    aspect-ratio:1;
+    border-radius:50%;
+    background:
+        radial-gradient(circle,rgba(41,164,255,.22),rgba(26,102,255,.07) 39%,transparent 68%);
+    filter:blur(18px);
+    animation:glowPulse 4.8s ease-in-out infinite;
+}
+.robot-orbit{
+    position:absolute;
+    width:80%;
+    aspect-ratio:1;
+    border-radius:50%;
+    border:1px solid rgba(98,204,255,.09);
+    animation:orbit 24s linear infinite;
+}
+.robot-orbit.two{
+    width:64%;
+    animation-duration:33s;
+    animation-direction:reverse;
+}
+.robot-orbit::before,
+.robot-orbit::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:#70ecff;
+    box-shadow:0 0 15px rgba(86,226,255,.86);
+}
+.robot-orbit::before{
+    width:5px;height:5px;
+    top:9%;left:18%;
+}
+.robot-orbit::after{
+    width:3px;height:3px;
+    bottom:16%;right:10%;
+}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes glowPulse{50%{transform:scale(1.07);opacity:.7}}
+
+.robot-frame{
+    position:relative;
+    z-index:3;
+    width:96%;
+    max-width:555px;
+    padding:13px;
+    border-radius:25px;
+    border:1px solid rgba(116,200,255,.12);
+    background:linear-gradient(145deg,rgba(9,26,45,.66),rgba(3,12,23,.58));
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.42),
+        inset 0 0 45px rgba(58,153,255,.035);
+    animation:robotFloat 5.2s ease-in-out infinite;
+}
+.robot-frame::before{
+    content:"";
+    position:absolute;
+    inset:-7px;
+    z-index:-1;
+    border-radius:30px;
+    border:1px solid rgba(96,192,255,.045);
+}
+.robot-img{
+    display:block;
+    width:100%;
+    max-height:540px;
+    object-fit:contain;
+    border-radius:16px;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 88%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 0%,#000 88%,transparent 100%);
+}
+@keyframes robotFloat{
+    50%{transform:translateY(-10px)}
+}
+.robot-label{
+    position:absolute;
+    right:22px;
+    top:24px;
+    z-index:5;
+    padding:11px 14px;
+    border:1px solid rgba(89,190,255,.12);
+    border-radius:8px;
+    background:rgba(4,18,33,.72);
+    backdrop-filter:blur(8px);
+}
+.robot-label small{
+    display:block;
+    color:#62c9eb;
+    font-size:7px;
+    letter-spacing:.18em;
+    margin-bottom:4px;
+}
+.robot-label strong{font-size:15px}
+
+/* 下滑提示 */
+.scroll-cue{
+    position:absolute;
+    left:50%;
+    bottom:16px;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+    color:#49657d;
+    font-size:8px;
+    letter-spacing:.25em;
+}
+.scroll-cue::after{
+    content:"";
+    width:1px;
+    height:34px;
+    background:linear-gradient(#64e7ff,transparent);
+    animation:scrollCue 1.8s ease-in-out infinite;
+}
+@keyframes scrollCue{
+    50%{transform:translateY(7px);opacity:.35}
+}
+
+
+/* ===== V3 四个提示词 + 卡片一体化布局 ===== */
+.module-tabs{
+    display:none !important;
+}
+
+.card-deck{
+    height:404px !important;
+    display:flex !important;
+    align-items:flex-start !important;
+    gap:12px !important;
+    padding:0 !important;
+}
+
+.card-group{
+    position:relative;
+    flex:1 1 0;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:
+        flex .42s cubic-bezier(.2,.72,.2,1),
+        opacity .30s ease,
+        filter .30s ease;
+}
+
+.card-group.active{
+    flex:2.72 1 0;
+    z-index:10;
+}
+
+.card-deck.has-active .card-group:not(.active){
+    flex:.72 1 0;
+    opacity:.52;
+    filter:saturate(.74);
+}
+
+/* 卡片上方提示词 */
+.card-tab{
+    height:38px;
+    appearance:none;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#718a9f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-size:15px;
+    font-weight:500;
+    letter-spacing:.03em;
+    cursor:pointer;
+    transition:
+        color .25s ease,
+        font-size .25s ease,
+        text-shadow .25s ease;
+}
+
+.card-tab .dot{
+    position:relative;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    flex:0 0 7px;
+    background:#3c6079;
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+.card-group.active .card-tab{
+    color:#e6fbff;
+    font-size:17px;
+    text-shadow:0 0 18px rgba(91,220,255,.14);
+}
+
+.card-group.active .card-tab .dot{
+    transform:scale(1.45);
+    background:#6cecff;
+    box-shadow:
+        0 0 10px #5ee7ff,
+        0 0 24px rgba(68,190,255,.72);
+}
+
+.card-group.active .card-tab .dot::before,
+.card-group.active .card-tab .dot::after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#7cf1ff;
+    box-shadow:0 0 8px rgba(87,228,255,.9);
+    animation:dotParticleV3 1.4s ease-in-out infinite;
+}
+.card-group.active .card-tab .dot::before{
+    left:-8px;
+    top:-5px;
+}
+.card-group.active .card-tab .dot::after{
+    right:-8px;
+    bottom:-5px;
+    animation-delay:.65s;
+}
+@keyframes dotParticleV3{
+    50%{
+        transform:translateY(-3px);
+        opacity:.35;
+    }
+}
+
+/* 卡片本体不再自己控制 flex，只跟着 group 走 */
+.card-group .nav-card{
+    width:100%;
+    flex:none !important;
+    height:184px;
+}
+
+.card-group.active .nav-card{
+    height:352px !important;
+    transform:translateY(-4px) !important;
+}
+
+.card-deck.has-active .card-group:not(.active) .nav-card{
+    height:166px !important;
+    transform:none !important;
+    opacity:1 !important;
+    filter:none !important;
+}
+
+/* 展开卡片内容更舒展 */
+.card-group.active .card-list{
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+}
+.card-group.active .card-title{
+    font-size:21px;
+}
+.card-group.active .card-link{
+    min-height:31px;
+}
+
+/* 去掉旧 active flex 干扰 */
+.nav-card.active{
+    flex:none !important;
+}
+.card-deck.has-active .nav-card:not(.active){
+    flex:none !important;
+    opacity:1 !important;
+    filter:none !important;
+}
+
+/* 中等电脑 */
+@media(max-width:1380px){
+    .brand-logo-only{
+        width:132px;
+    }
+
+    .card-tab{
+        font-size:14px;
+    }
+
+    .card-group.active .card-tab{
+        font-size:16px;
+    }
+
+    .card-deck{
+        gap:9px !important;
+    }
+
+    .card-group.active{
+        flex:2.58 1 0;
+    }
+
+    .card-deck.has-active .card-group:not(.active){
+        flex:.74 1 0;
+    }
+}
+
+
+/* ===== V4 第一屏视觉强化 ===== */
+.hero{
+    min-height:100vh !important;
+}
+
+.hero-ambient-robot{
+    position:absolute;
+    z-index:0;
+    left:-95px;
+    top:245px;
+    width:610px;
+    max-height:500px;
+    object-fit:cover;
+    opacity:.105;
+    filter:
+        blur(7px)
+        saturate(.58)
+        brightness(.76)
+        contrast(1.08);
+    transform:rotate(-2deg) scale(1.04);
+    pointer-events:none;
+    user-select:none;
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at 47% 47%,
+            #000 0%,
+            rgba(0,0,0,.92) 38%,
+            rgba(0,0,0,.54) 63%,
+            transparent 82%
+        );
+    mask-image:
+        radial-gradient(
+            ellipse at 47% 47%,
+            #000 0%,
+            rgba(0,0,0,.92) 38%,
+            rgba(0,0,0,.54) 63%,
+            transparent 82%
+        );
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    z-index:0;
+    left:-180px;
+    top:250px;
+    width:720px;
+    height:520px;
+    border-radius:50%;
+    pointer-events:none;
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(19,133,255,.095) 0%,
+            rgba(0,189,255,.042) 42%,
+            transparent 72%
+        );
+    filter:blur(30px);
+}
+
+.hero-inner{
+    position:relative;
+    z-index:2;
+    width:min(1320px,calc(100% - 96px)) !important;
+    grid-template-columns:minmax(690px,1.15fr) minmax(470px,.85fr) !important;
+    gap:58px !important;
+}
+
+.hero h1{
+    font-size:74px !important;
+    line-height:.96 !important;
+    margin-top:24px !important;
+    margin-bottom:19px !important;
+}
+
+.hero-desc{
+    font-size:14.5px !important;
+    line-height:1.9 !important;
+    max-width:680px;
+}
+
+.card-deck{
+    width:100%;
+    max-width:710px;
+}
+
+.robot-stage{
+    height:680px !important;
+}
+
+.robot-frame{
+    width:100% !important;
+    max-width:600px !important;
+    padding:12px !important;
+}
+
+.robot-img{
+    max-height:585px !important;
+}
+
+.robot-glow{
+    width:95% !important;
+}
+
+.robot-orbit{
+    width:86% !important;
+}
+
+.robot-orbit.two{
+    width:69% !important;
+}
+
+/* 当前 V5 的中等桌面适配 */
+@media(max-width:1380px){
+    .hero-inner{
+        width:calc(100% - 74px) !important;
+        grid-template-columns:minmax(620px,1.13fr) minmax(410px,.87fr) !important;
+        gap:36px !important;
+    }
+
+    .hero h1{
+        font-size:64px !important;
+    }
+
+    .hero-ambient-robot{
+        left:-125px;
+        top:255px;
+        width:560px;
+        opacity:.09;
+    }
+
+    .robot-stage{
+        height:630px !important;
+    }
+
+    .robot-frame{
+        max-width:550px !important;
+    }
+
+    .card-deck{
+        max-width:650px;
+    }
+}
