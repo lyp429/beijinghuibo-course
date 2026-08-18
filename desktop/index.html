@@ -759,6 +759,400 @@ button{font:inherit}
     .nav-card.active .card-title{font-size:20px}
 }
 </style>
+<style>
+/* ===== V3 顶部 Logo ===== */
+.brand-only{
+    display:flex;
+    align-items:center;
+}
+.brand-logo-only{
+    display:block;
+    width:148px;
+    height:38px;
+    object-fit:contain;
+    object-position:left center;
+    filter:drop-shadow(0 0 14px rgba(68,190,255,.12));
+}
+
+/* ===== V3 四个提示词 + 卡片一体化布局 ===== */
+.module-tabs{
+    display:none !important;
+}
+
+.card-deck{
+    height:404px !important;
+    display:flex !important;
+    align-items:flex-start !important;
+    gap:12px !important;
+    padding:0 !important;
+}
+
+.card-group{
+    position:relative;
+    flex:1 1 0;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:
+        flex .42s cubic-bezier(.2,.72,.2,1),
+        opacity .30s ease,
+        filter .30s ease;
+}
+
+.card-group.active{
+    flex:2.72 1 0;
+    z-index:10;
+}
+
+.card-deck.has-active .card-group:not(.active){
+    flex:.72 1 0;
+    opacity:.52;
+    filter:saturate(.74);
+}
+
+/* 卡片上方提示词 */
+.card-tab{
+    height:38px;
+    appearance:none;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#718a9f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-size:15px;
+    font-weight:500;
+    letter-spacing:.03em;
+    cursor:pointer;
+    transition:
+        color .25s ease,
+        font-size .25s ease,
+        text-shadow .25s ease;
+}
+
+.card-tab .dot{
+    position:relative;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    flex:0 0 7px;
+    background:#3c6079;
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+.card-group.active .card-tab{
+    color:#e6fbff;
+    font-size:17px;
+    text-shadow:0 0 18px rgba(91,220,255,.14);
+}
+
+.card-group.active .card-tab .dot{
+    transform:scale(1.45);
+    background:#6cecff;
+    box-shadow:
+        0 0 10px #5ee7ff,
+        0 0 24px rgba(68,190,255,.72);
+}
+
+.card-group.active .card-tab .dot::before,
+.card-group.active .card-tab .dot::after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#7cf1ff;
+    box-shadow:0 0 8px rgba(87,228,255,.9);
+    animation:dotParticleV3 1.4s ease-in-out infinite;
+}
+.card-group.active .card-tab .dot::before{
+    left:-8px;
+    top:-5px;
+}
+.card-group.active .card-tab .dot::after{
+    right:-8px;
+    bottom:-5px;
+    animation-delay:.65s;
+}
+@keyframes dotParticleV3{
+    50%{
+        transform:translateY(-3px);
+        opacity:.35;
+    }
+}
+
+/* 卡片本体不再自己控制 flex，只跟着 group 走 */
+.card-group .nav-card{
+    width:100%;
+    flex:none !important;
+    height:184px;
+}
+
+.card-group.active .nav-card{
+    height:352px !important;
+    transform:translateY(-4px) !important;
+}
+
+.card-deck.has-active .card-group:not(.active) .nav-card{
+    height:166px !important;
+    transform:none !important;
+    opacity:1 !important;
+    filter:none !important;
+}
+
+/* 展开卡片内容更舒展 */
+.card-group.active .card-list{
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+}
+.card-group.active .card-title{
+    font-size:21px;
+}
+.card-group.active .card-link{
+    min-height:31px;
+}
+
+/* 去掉旧 active flex 干扰 */
+.nav-card.active{
+    flex:none !important;
+}
+.card-deck.has-active .nav-card:not(.active){
+    flex:none !important;
+    opacity:1 !important;
+    filter:none !important;
+}
+
+/* 中等电脑 */
+@media(max-width:1380px){
+    .brand-logo-only{
+        width:132px;
+    }
+
+    .card-tab{
+        font-size:14px;
+    }
+
+    .card-group.active .card-tab{
+        font-size:16px;
+    }
+
+    .card-deck{
+        gap:9px !important;
+    }
+
+    .card-group.active{
+        flex:2.58 1 0;
+    }
+
+    .card-deck.has-active .card-group:not(.active){
+        flex:.74 1 0;
+    }
+}
+</style>
+
+<style>
+/* =========================================================
+   V4：整页翻页吸附 + 左侧氛围机器人 + 主视觉放大
+   ========================================================= */
+
+/* 一页一页的吸附感 */
+html{
+    scroll-snap-type:y mandatory;
+    scroll-padding-top:90px;
+    overscroll-behavior-y:none;
+}
+
+.hero,
+.home-section{
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+}
+
+/* 后续每一屏恢复完整 100vh，形成清晰停顿 */
+.home-section{
+    min-height:100vh !important;
+    display:flex;
+    align-items:center;
+    padding-top:96px !important;
+    padding-bottom:72px !important;
+}
+
+/* 第一屏保持完整屏幕 */
+.hero{
+    min-height:100vh !important;
+}
+
+/* 左侧虚化、透明机器人背景 */
+.hero-ambient-robot{
+    position:absolute;
+    z-index:0;
+    left:-95px;
+    top:245px;
+
+    width:610px;
+    max-height:500px;
+    object-fit:cover;
+
+    opacity:.105;
+
+    filter:
+        blur(7px)
+        saturate(.58)
+        brightness(.76)
+        contrast(1.08);
+
+    transform:
+        rotate(-2deg)
+        scale(1.04);
+
+    pointer-events:none;
+    user-select:none;
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at 47% 47%,
+            #000 0%,
+            rgba(0,0,0,.92) 38%,
+            rgba(0,0,0,.54) 63%,
+            transparent 82%
+        );
+
+    mask-image:
+        radial-gradient(
+            ellipse at 47% 47%,
+            #000 0%,
+            rgba(0,0,0,.92) 38%,
+            rgba(0,0,0,.54) 63%,
+            transparent 82%
+        );
+}
+
+/* 在氛围图后面再压一层冷色光，不抢文字 */
+.hero::after{
+    content:"";
+    position:absolute;
+    z-index:0;
+    left:-180px;
+    top:250px;
+    width:720px;
+    height:520px;
+    border-radius:50%;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(19,133,255,.095) 0%,
+            rgba(0,189,255,.042) 42%,
+            transparent 72%
+        );
+
+    filter:blur(30px);
+}
+
+/* 所有主要内容压到氛围图上面 */
+.hero-inner{
+    position:relative;
+    z-index:2;
+    width:min(1320px,calc(100% - 96px)) !important;
+    grid-template-columns:minmax(690px,1.15fr) minmax(470px,.85fr) !important;
+    gap:58px !important;
+}
+
+/* 北京汇博智能实训基地再放大一档 */
+.hero h1{
+    font-size:74px !important;
+    line-height:.96 !important;
+    margin-top:24px !important;
+    margin-bottom:19px !important;
+}
+
+/* 描述也略放大，避免标题大了下面显得太弱 */
+.hero-desc{
+    font-size:14.5px !important;
+    line-height:1.9 !important;
+    max-width:680px;
+}
+
+/* 四组卡片略宽，左侧整体更饱满 */
+.card-deck{
+    width:100%;
+    max-width:710px;
+}
+
+/* 右侧 Astra Pro2 主视觉再放大一点 */
+.robot-stage{
+    height:680px !important;
+}
+
+.robot-frame{
+    width:100% !important;
+    max-width:600px !important;
+    padding:12px !important;
+}
+
+.robot-img{
+    max-height:585px !important;
+}
+
+/* 让右侧背景光也扩大 */
+.robot-glow{
+    width:95% !important;
+}
+
+.robot-orbit{
+    width:86% !important;
+}
+
+.robot-orbit.two{
+    width:69% !important;
+}
+
+/* 后续内容屏幕居中，不会一滚到底 */
+.home-section .section-inner{
+    align-items:center;
+}
+
+/* 桌面中等宽度适配 */
+@media(max-width:1380px){
+    .hero-inner{
+        width:calc(100% - 74px) !important;
+        grid-template-columns:minmax(620px,1.13fr) minmax(410px,.87fr) !important;
+        gap:36px !important;
+    }
+
+    .hero h1{
+        font-size:64px !important;
+    }
+
+    .hero-ambient-robot{
+        left:-125px;
+        top:255px;
+        width:560px;
+        opacity:.09;
+    }
+
+    .robot-stage{
+        height:630px !important;
+    }
+
+    .robot-frame{
+        max-width:550px !important;
+    }
+
+    .card-deck{
+        max-width:650px;
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -782,6 +1176,14 @@ button{font:inherit}
 <main>
 
 <section class="hero" id="home">
+
+    <!-- 左侧氛围机器人：低透明、虚化，只做空间层次 -->
+    <img
+        class="hero-ambient-robot"
+        src="../images/hero-robot-bg.png"
+        alt=""
+        aria-hidden="true"
+    >
     <div class="hero-inner">
 
         <div class="hero-copy">
@@ -1272,203 +1674,80 @@ tabs.forEach((tab,index)=>{
 });
 </script>
 
+
+<script>
+/* =========================================================
+   V4 强化整页翻页
+   普通鼠标滚轮一次进入下一屏，约 780ms 内锁定，
+   避免一滚跨过两三屏。
+   ========================================================= */
+(function(){
+    const pageSections = [
+        ...document.querySelectorAll(".hero, .home-section")
+    ];
+
+    if(!pageSections.length) return;
+
+    let wheelLocked = false;
+
+    function nearestSectionIndex(){
+        const y = window.scrollY + window.innerHeight * .42;
+
+        let bestIndex = 0;
+        let bestDistance = Infinity;
+
+        pageSections.forEach((section,index)=>{
+            const distance = Math.abs(section.offsetTop - y);
+
+            if(distance < bestDistance){
+                bestDistance = distance;
+                bestIndex = index;
+            }
+        });
+
+        return bestIndex;
+    }
+
+    window.addEventListener(
+        "wheel",
+        function(event){
+            /* 小幅触控板抖动不处理 */
+            if(Math.abs(event.deltaY) < 18) return;
+
+            if(wheelLocked){
+                event.preventDefault();
+                return;
+            }
+
+            const current = nearestSectionIndex();
+
+            let next = current;
+
+            if(event.deltaY > 0){
+                next = Math.min(current + 1, pageSections.length - 1);
+            }else{
+                next = Math.max(current - 1, 0);
+            }
+
+            if(next === current) return;
+
+            event.preventDefault();
+
+            wheelLocked = true;
+
+            pageSections[next].scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+            window.setTimeout(()=>{
+                wheelLocked = false;
+            },780);
+        },
+        {passive:false}
+    );
+})();
+</script>
+
 </body>
 </html>
-
-<style>
-/* ===== V3 顶部 Logo ===== */
-.brand-only{
-    display:flex;
-    align-items:center;
-}
-.brand-logo-only{
-    display:block;
-    width:148px;
-    height:38px;
-    object-fit:contain;
-    object-position:left center;
-    filter:drop-shadow(0 0 14px rgba(68,190,255,.12));
-}
-
-/* ===== V3 四个提示词 + 卡片一体化布局 ===== */
-.module-tabs{
-    display:none !important;
-}
-
-.card-deck{
-    height:404px !important;
-    display:flex !important;
-    align-items:flex-start !important;
-    gap:12px !important;
-    padding:0 !important;
-}
-
-.card-group{
-    position:relative;
-    flex:1 1 0;
-    min-width:0;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    transition:
-        flex .42s cubic-bezier(.2,.72,.2,1),
-        opacity .30s ease,
-        filter .30s ease;
-}
-
-.card-group.active{
-    flex:2.72 1 0;
-    z-index:10;
-}
-
-.card-deck.has-active .card-group:not(.active){
-    flex:.72 1 0;
-    opacity:.52;
-    filter:saturate(.74);
-}
-
-/* 卡片上方提示词 */
-.card-tab{
-    height:38px;
-    appearance:none;
-    border:0;
-    outline:0;
-    background:transparent;
-    color:#718a9f;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    font-size:15px;
-    font-weight:500;
-    letter-spacing:.03em;
-    cursor:pointer;
-    transition:
-        color .25s ease,
-        font-size .25s ease,
-        text-shadow .25s ease;
-}
-
-.card-tab .dot{
-    position:relative;
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    flex:0 0 7px;
-    background:#3c6079;
-    transition:
-        transform .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
-}
-
-.card-group.active .card-tab{
-    color:#e6fbff;
-    font-size:17px;
-    text-shadow:0 0 18px rgba(91,220,255,.14);
-}
-
-.card-group.active .card-tab .dot{
-    transform:scale(1.45);
-    background:#6cecff;
-    box-shadow:
-        0 0 10px #5ee7ff,
-        0 0 24px rgba(68,190,255,.72);
-}
-
-.card-group.active .card-tab .dot::before,
-.card-group.active .card-tab .dot::after{
-    content:"";
-    position:absolute;
-    width:2px;
-    height:2px;
-    border-radius:50%;
-    background:#7cf1ff;
-    box-shadow:0 0 8px rgba(87,228,255,.9);
-    animation:dotParticleV3 1.4s ease-in-out infinite;
-}
-.card-group.active .card-tab .dot::before{
-    left:-8px;
-    top:-5px;
-}
-.card-group.active .card-tab .dot::after{
-    right:-8px;
-    bottom:-5px;
-    animation-delay:.65s;
-}
-@keyframes dotParticleV3{
-    50%{
-        transform:translateY(-3px);
-        opacity:.35;
-    }
-}
-
-/* 卡片本体不再自己控制 flex，只跟着 group 走 */
-.card-group .nav-card{
-    width:100%;
-    flex:none !important;
-    height:184px;
-}
-
-.card-group.active .nav-card{
-    height:352px !important;
-    transform:translateY(-4px) !important;
-}
-
-.card-deck.has-active .card-group:not(.active) .nav-card{
-    height:166px !important;
-    transform:none !important;
-    opacity:1 !important;
-    filter:none !important;
-}
-
-/* 展开卡片内容更舒展 */
-.card-group.active .card-list{
-    opacity:1;
-    transform:none;
-    pointer-events:auto;
-}
-.card-group.active .card-title{
-    font-size:21px;
-}
-.card-group.active .card-link{
-    min-height:31px;
-}
-
-/* 去掉旧 active flex 干扰 */
-.nav-card.active{
-    flex:none !important;
-}
-.card-deck.has-active .nav-card:not(.active){
-    flex:none !important;
-    opacity:1 !important;
-    filter:none !important;
-}
-
-/* 中等电脑 */
-@media(max-width:1380px){
-    .brand-logo-only{
-        width:132px;
-    }
-
-    .card-tab{
-        font-size:14px;
-    }
-
-    .card-group.active .card-tab{
-        font-size:16px;
-    }
-
-    .card-deck{
-        gap:9px !important;
-    }
-
-    .card-group.active{
-        flex:2.58 1 0;
-    }
-
-    .card-deck.has-active .card-group:not(.active){
-        flex:.74 1 0;
-    }
-}
-</style>
