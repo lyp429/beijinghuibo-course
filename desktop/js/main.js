@@ -1,151 +1,490 @@
 /*
-  全站公共逻辑
-  =========================================================
-  1. 组装 5 个独立 HTML 模块
-  2. 初始化第1屏交互
-  3. 维持 V5 的“一滚一页”精准吸附
+  北京汇博智能实训基地｜电脑端公共逻辑
+
+  功能：
+  1. 加载5个独立页面模块
+  2. 初始化首页Hero交互
+  3. 一滚一页翻页
+  4. 修复刷新后自动跳到基地概况的问题
 */
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const content = document.getElementById("site-content");
 
-    const modules = [
-        "./sections/hero.html",
-        "./sections/industry.html",
-        "./sections/courses.html",
-        "./sections/about.html",
-        "./sections/embodied.html"
-    ];
+// =====================================================
+// 刷新定位修复
+// =====================================================
 
-    try{
-        const htmlList = await Promise.all(
-            modules.map(async file => {
-                const response = await fetch(file, {cache:"no-store"});
+// 禁止浏览器记忆刷新前滚动位置
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
 
-                if(!response.ok){
-                    throw new Error(`${file} 加载失败：${response.status}`);
-                }
 
-                return await response.text();
-            })
+// 刷新时清除锚点，并回到第一页
+function resetHomePosition(){
+
+    // 如果地址栏有 #about / #courses 等
+    // 清除它
+    if(location.hash){
+
+        history.replaceState(
+            null,
+            "",
+            location.pathname + location.search
         );
 
-        content.innerHTML = htmlList.join("\n");
+    }
 
-        /* 第一屏四卡片交互 */
-        if(typeof window.initHero === "function"){
+
+    // 回到顶部
+    window.scrollTo({
+        top:0,
+        left:0,
+        behavior:"auto"
+    });
+
+}
+
+
+// 页面开始加载立即执行
+resetHomePosition();
+
+
+
+document.addEventListener(
+"DOMContentLoaded",
+async()=>{
+
+
+    const content =
+        document.getElementById("site-content");
+
+
+    // 五个独立模块
+    const modules=[
+
+        "./sections/hero.html",
+
+        "./sections/industry.html",
+
+        "./sections/courses.html",
+
+        "./sections/about.html",
+
+        "./sections/embodied.html"
+
+    ];
+
+
+
+    try{
+
+
+        // 加载5个页面
+
+        const htmlList =
+        await Promise.all(
+
+            modules.map(
+                async file=>{
+
+                    const response =
+                    await fetch(
+                        file,
+                        {
+                            cache:"no-store"
+                        }
+                    );
+
+
+                    if(!response.ok){
+
+                        throw new Error(
+                            file+"加载失败"
+                        );
+
+                    }
+
+
+                    return await response.text();
+
+                }
+            )
+
+        );
+
+
+
+        // 插入页面
+
+        content.innerHTML =
+        htmlList.join("\n");
+
+
+
+        // 初始化第一页卡片交互
+
+        if(
+            typeof window.initHero === "function"
+        ){
+
             window.initHero();
+
         }
 
-        /* 5 屏全部载入后，再启动整页滚动 */
-        initFullPageScroll();
 
-        /* 如果 URL 自带 #industry / #courses 等锚点，加载后再定位 */
-        if(location.hash){
+
+
+        // ===========================
+        // 重点修复
+        // 模块加载完成后再次回首页
+        // ===========================
+
+
+        window.scrollTo({
+
+            top:0,
+
+            left:0,
+
+            behavior:"auto"
+
+        });
+
+
+
+        // 等浏览器布局完成后再次确认
+
+        requestAnimationFrame(()=>{
+
+
             requestAnimationFrame(()=>{
-                document.querySelector(location.hash)?.scrollIntoView({
-                    behavior:"auto",
-                    block:"start"
-                });
-            });
-        }
 
-    }catch(error){
+
+                window.scrollTo({
+
+                    top:0,
+
+                    left:0,
+
+                    behavior:"auto"
+
+                });
+
+
+
+                initFullPageScroll();
+
+
+            });
+
+
+        });
+
+
+
+        // 最后一层保险
+
+        setTimeout(()=>{
+
+
+            window.scrollTo({
+
+                top:0,
+
+                left:0,
+
+                behavior:"auto"
+
+            });
+
+
+        },300);
+
+
+
+    }
+
+    catch(error){
+
+
         console.error(error);
 
+
         content.innerHTML = `
-            <div class="site-load-error">
-                <h2>页面模块加载失败</h2>
-                <p>${error.message}</p>
-                <p>
-                    如果你是直接双击本地 HTML 打开的，这是浏览器对 fetch 的限制。
-                    上传到 GitHub Pages 后即可正常加载。
-                </p>
-            </div>
+
+        <div class="site-load-error">
+
+            页面加载失败：
+
+            ${error.message}
+
+        </div>
+
         `;
+
+
     }
+
+
 });
 
 
+
+
+
+// =====================================================
+// 整页翻页功能
+// =====================================================
+
+
 function initFullPageScroll(){
-    const pages = [
-        ...document.querySelectorAll(".hero, .home-section")
+
+
+    const pages=[
+
+        ...document.querySelectorAll(
+            ".hero,.home-section"
+        )
+
     ];
 
-    if(!pages.length) return;
 
-    let locked = false;
-    let currentPage = 0;
-    let unlockTimer = null;
 
-    function getClosestPage(){
-        const y = window.scrollY;
-        let bestIndex = 0;
-        let bestDistance = Infinity;
+    if(!pages.length){
 
-        pages.forEach((page,index)=>{
-            const distance = Math.abs(page.offsetTop - y);
+        return;
 
-            if(distance < bestDistance){
-                bestDistance = distance;
-                bestIndex = index;
-            }
-        });
-
-        return bestIndex;
     }
 
-    function goToPage(index){
-        currentPage = Math.max(
-            0,
-            Math.min(index, pages.length - 1)
+
+
+    let locked=false;
+
+
+    let currentPage=0;
+
+
+    let timer=null;
+
+
+
+
+
+    // 找当前所在页
+
+    function getCurrentPage(){
+
+
+        const y =
+        window.scrollY;
+
+
+        let index=0;
+
+
+        let distance=
+        Infinity;
+
+
+
+        pages.forEach(
+            (page,i)=>{
+
+
+                const d=
+                Math.abs(
+                    page.offsetTop-y
+                );
+
+
+
+                if(d<distance){
+
+                    distance=d;
+
+                    index=i;
+
+                }
+
+
+            }
         );
 
-        window.scrollTo({
-            top: pages[currentPage].offsetTop,
-            behavior:"smooth"
-        });
 
-        clearTimeout(unlockTimer);
 
-        unlockTimer = setTimeout(()=>{
-            window.scrollTo({
-                top: pages[currentPage].offsetTop,
-                behavior:"auto"
-            });
+        return index;
 
-            locked = false;
-        },760);
+
     }
 
+
+
+
+
+
+    // 跳转页面
+
+    function goPage(index){
+
+
+
+        currentPage =
+        Math.max(
+            0,
+            Math.min(
+                index,
+                pages.length-1
+            )
+        );
+
+
+
+        window.scrollTo({
+
+            top:
+            pages[currentPage].offsetTop,
+
+            behavior:"smooth"
+
+        });
+
+
+
+        clearTimeout(timer);
+
+
+
+        timer =
+        setTimeout(()=>{
+
+
+            window.scrollTo({
+
+                top:
+                pages[currentPage].offsetTop,
+
+                behavior:"auto"
+
+            });
+
+
+
+            locked=false;
+
+
+
+        },800);
+
+
+
+    }
+
+
+
+
+
+    // 鼠标滚轮控制
+
     window.addEventListener(
+
         "wheel",
+
         function(event){
-            if(Math.abs(event.deltaY) < 16) return;
+
+
+
+            if(
+                Math.abs(event.deltaY)<16
+            ){
+
+                return;
+
+            }
+
+
 
             event.preventDefault();
 
-            if(locked) return;
 
-            locked = true;
-            currentPage = getClosestPage();
 
-            if(event.deltaY > 0){
-                goToPage(currentPage + 1);
-            }else{
-                goToPage(currentPage - 1);
+
+            if(locked){
+
+                return;
+
             }
+
+
+
+            locked=true;
+
+
+
+            currentPage =
+            getCurrentPage();
+
+
+
+
+            if(event.deltaY>0){
+
+
+                goPage(
+                    currentPage+1
+                );
+
+
+            }
+
+            else{
+
+
+                goPage(
+                    currentPage-1
+                );
+
+
+            }
+
+
+
         },
-        {passive:false}
+
+        {
+            passive:false
+        }
+
     );
+
+
+
+
+
+
+    // 手动拖动滚动条时同步页码
 
     window.addEventListener(
+
         "scroll",
-        function(){
+
+        ()=>{
+
+
             if(!locked){
-                currentPage = getClosestPage();
+
+                currentPage =
+                getCurrentPage();
+
             }
+
+
         },
-        {passive:true}
+
+        {
+            passive:true
+        }
+
     );
+
+
 }
