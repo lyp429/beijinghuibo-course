@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北京汇博智能实训基地</title>
+<meta name="description" content="北京汇博智能实训基地，聚焦人工智能、具身智能、机器人、工业视觉与智能制造人才培养。">
+
+<!-- 公共样式：背景、顶部导航、整页吸附、Footer -->
+<link rel="stylesheet" href="./css/base.css">
+
+<!-- 5 个篇幅各自独立的 CSS -->
+<link rel="stylesheet" href="./css/hero.css">
+<link rel="stylesheet" href="./css/industry.css">
+<link rel="stylesheet" href="./css/courses.css">
+<link rel="stylesheet" href="./css/about.css">
+<link rel="stylesheet" href="./css/embodied.css">
+
+<script defer src="./js/hero.js"></script>
+<script defer src="./js/main.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a class="brand brand-only" href="#home" aria-label="汇博机器人首页">
+            <img class="brand-logo-only" src="../images/logo.png" alt="汇博机器人">
+        </a>
+
+        <nav class="header-nav">
+            <a href="#home">首页</a>
+            <a href="#industry">产教融合</a>
+            <a href="#courses">培训课程</a>
+            <a href="#about">基地概况</a>
+            <a href="#embodied">具身智能</a>
+        </nav>
+    </div>
+</header>
+
+<!--
+    这里不再直接写 5 个页面。
+    main.js 会自动读取 sections 文件夹中的 5 个模块。
+    所以以后修改第二屏时，只改 sections/industry.html 即可。
+-->
+<main id="site-content">
+    <div class="site-loading" id="siteLoading">
+        正在加载北京汇博智能实训基地…
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <span>北京汇博智能实训基地</span>
+        <span>ARTIFICIAL INTELLIGENCE · ROBOTICS · INTELLIGENT MANUFACTURING</span>
+    </div>
+</footer>
+
+</body>
+</html>
