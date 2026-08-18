@@ -6,10 +6,7 @@
 <title>北京汇博智能实训基地</title>
 <meta name="description" content="北京汇博智能实训基地，聚焦人工智能、具身智能、机器人、工业视觉与智能制造人才培养。">
 
-<!-- 公共样式：背景、顶部导航、整页吸附、Footer -->
 <link rel="stylesheet" href="./css/base.css">
-
-<!-- 5 个篇幅各自独立的 CSS -->
 <link rel="stylesheet" href="./css/hero.css">
 <link rel="stylesheet" href="./css/industry.css">
 <link rel="stylesheet" href="./css/courses.css">
@@ -23,28 +20,23 @@
 
 <body>
 
-<header class="header is-home-top" id="siteHeader">
+<header class="header" id="siteHeader">
     <div class="header-inner">
 
         <a class="brand brand-only" href="#home" aria-label="汇博机器人首页">
-
-            <!-- 浅色透明状态：新彩色 Logo -->
             <img
-                class="brand-logo brand-logo-color"
-                src="../images/logo-color.jpg"
+                class="brand-logo brand-logo-light"
+                src="../images/logo-color-transparent.png"
                 alt="汇博机器人">
 
-            <!-- 深色 Hover 状态：你原来的网站 Logo -->
             <img
                 class="brand-logo brand-logo-dark"
                 src="../images/logo.png"
                 alt=""
                 aria-hidden="true">
-
         </a>
 
-
-        <div class="header-actions">
+        <div class="header-right">
 
             <nav class="header-nav" aria-label="主导航">
                 <a href="#home">首页</a>
@@ -54,41 +46,23 @@
                 <a href="#embodied">具身智能</a>
             </nav>
 
-
             <div class="header-tools">
 
-                <!-- 目前只完成外观，下一步再接搜索逻辑 -->
                 <button
-                    class="header-search"
+                    class="header-search-btn"
                     id="headerSearchBtn"
                     type="button"
                     aria-label="搜索"
-                    title="搜索">
+                    aria-expanded="false">
 
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true">
-                        <circle
-                            cx="11"
-                            cy="11"
-                            r="6.6"
-                            stroke="currentColor"
-                            stroke-width="1.7"/>
-                        <path
-                            d="M16 16L21 21"
-                            stroke="currentColor"
-                            stroke-width="1.7"
-                            stroke-linecap="round"/>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="10.8" cy="10.8" r="6.4"></circle>
+                        <path d="M15.7 15.7L21 21"></path>
                     </svg>
-
                 </button>
 
-
-                <!-- 目前先做外观，后面可接联系方式弹窗/联系页 -->
                 <button
-                    class="header-contact"
+                    class="header-contact-btn"
                     id="headerContactBtn"
                     type="button">
                     合作 / 联系
@@ -98,16 +72,38 @@
 
         </div>
 
+        <!-- 搜索外观面板：目前只做 UI，真正站内搜索后续再接 -->
+        <div class="header-search-panel" id="headerSearchPanel" aria-hidden="true">
+            <div class="header-search-box">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10.8" cy="10.8" r="6.4"></circle>
+                    <path d="M15.7 15.7L21 21"></path>
+                </svg>
+
+                <input
+                    type="search"
+                    id="headerSearchInput"
+                    placeholder="搜索课程、产教融合、基地内容…"
+                    autocomplete="off">
+
+                <button
+                    class="header-search-close"
+                    id="headerSearchClose"
+                    type="button"
+                    aria-label="关闭搜索">
+                    ×
+                </button>
+            </div>
+        </div>
+
     </div>
 </header>
-
 
 <main id="site-content">
     <div class="site-loading" id="siteLoading">
         正在加载北京汇博智能实训基地…
     </div>
 </main>
-
 
 <footer class="footer">
     <div class="footer-inner">
